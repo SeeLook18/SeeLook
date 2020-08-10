@@ -2,26 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
-        android:text="SeeLook"
         android:gravity="center"
-        android:textColor="@android:color/holo_blue_dark"
+        android:text="SeeLook"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/holo_blue_dark"
         android:textSize="40sp" />
 
     <TextView
         android:id="@+id/worldwide"
-        android:layout_marginBottom="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
         android:text="   My Seelook"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,25 +32,25 @@
 
         <VideoView
             android:id="@+id/videoView1"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
 
 
         <VideoView
             android:id="@+id/videoView2"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
 
         <VideoView
             android:id="@+id/videoView3"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,24 +61,24 @@
 
         <VideoView
             android:id="@+id/videoView4"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
 
         <VideoView
             android:id="@+id/videoView5"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
 
         <VideoView
             android:id="@+id/videoView6"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,24 +89,24 @@
 
         <VideoView
             android:id="@+id/videoView7"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
 
         <VideoView
             android:id="@+id/videoView8"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
 
         <VideoView
             android:id="@+id/videoView9"
-            android:layout_margin="3.5dp"
-            android:padding="3dp"
             android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:layout_margin="3.5dp"
+            android:padding="3dp" />
     </LinearLayout>
 
 </LinearLayout>
