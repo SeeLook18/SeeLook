@@ -4,8 +4,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class Post_Activity extends AppCompatActivity {
@@ -14,7 +16,30 @@ public class Post_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_);
+
+        Button home_btn = (Button)findViewById(R.id.home);
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        home_Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button face_btn = (Button)findViewById(R.id.face);
+        face_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        profile_Activity.class);
+                startActivity(intent);
+            }
+        });
     }
+
     public void done_clicked(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("post??").setMessage("게시물을 작성하시겠습니까?!!");
