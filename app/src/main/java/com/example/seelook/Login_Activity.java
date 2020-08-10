@@ -18,7 +18,7 @@ public class Login_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_);
 
-        final TextView password_button = (TextView)findViewById(R.id.findpassword);
+       final TextView password_button = (TextView)findViewById(R.id.findpassword);
         password_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,5 +35,7 @@ public class Login_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 }
