@@ -11,6 +11,7 @@
         android:layout_marginBottom="30dp"
         android:gravity="center"
         android:text="SeeLook"
+        android:textStyle="bold|italic"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFD186"
         android:textSize="40sp" />
