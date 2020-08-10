@@ -12,10 +12,8 @@
     </item>
     <item android:shape="rectangle">
         <shape android:shape="rectangle">
-            <solid android:color="#55A2E1"/>
-            <stroke
-                android:width="2dp"
-                android:color="#B0D3EF"/>
+            <solid android:color="#FFDEAD"/>
+
         </shape>
     </item>
 </selector>
