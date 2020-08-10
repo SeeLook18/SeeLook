@@ -119,8 +119,8 @@
 
         <Button
             android:id="@+id/profile_btn"
-            android:layout_width="90dp"
-            android:layout_height="133dp"
+            android:layout_width="112dp"
+            android:layout_height="159dp"
             android:layout_marginTop="41dp"
             android:background="#FFFFFF"
             android:text="profile"
@@ -142,7 +142,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.505" />
 
         <Button
@@ -156,7 +156,7 @@
             android:textColor="#FFD186"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
