@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="5dp"
-    android:background="#FFFFFF"
+    android:background="#CADFE4"
     android:orientation="vertical">
 
     <TextView
@@ -16,10 +16,9 @@
         android:layout_marginBottom="80dp"
         android:gravity="center"
         android:text="SeeLook"
-        android:textColor="#B0D3EF"
+        android:textColor="#FAFDFF"
         android:textSize="30dp"
-        android:textStyle="bold|italic">
-    </TextView>
+        android:textStyle="bold|italic"></TextView>
 
     <LinearLayout
         android:layout_width="321dp"
@@ -60,8 +59,8 @@
                     android:drawableLeft="@drawable/lock"
                     android:hint=" 비밀 번호 입력"
                     android:paddingLeft="10dp"
-                    android:textColorHint="#ADB5BD"
                     android:textColor="#000000"
+                    android:textColorHint="#ADB5BD"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
@@ -81,7 +80,7 @@
             android:buttonTint="#55A2E1"
             android:paddingLeft="0dp"
             android:text="자동 로그인"
-            android:textColor="#55A2E1"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
