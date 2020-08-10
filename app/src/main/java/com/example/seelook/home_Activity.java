@@ -16,6 +16,17 @@ public class home_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_);
 
+        Button btn2 = (Button)findViewById(R.id.upload_btn);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        Post_Activity.class);
+                startActivity(intent);
+            }
+        });
+
         Button btn3 = (Button)findViewById(R.id.profile_btn);
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
