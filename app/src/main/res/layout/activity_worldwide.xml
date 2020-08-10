@@ -5,17 +5,22 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"></LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="30dp"
         android:gravity="center"
         android:text="SeeLook"
-        android:textStyle="bold|italic"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFD186"
-        android:textSize="40sp" />
-
+        android:textSize="40sp"
+        android:textStyle="bold|italic" />
 
     <LinearLayout
         android:layout_width="match_parent"
