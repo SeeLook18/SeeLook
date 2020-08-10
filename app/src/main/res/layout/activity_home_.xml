@@ -8,22 +8,38 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <SearchView
-        android:layout_width="342dp"
-        android:layout_height="36dp"
-        android:background="#FFD186"
+    <Button
+        android:id="@+id/back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:background="@drawable/back"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintEnd_toStartOf="@+id/searchView"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.753" />
+        app:layout_constraintVertical_bias="0.782"></Button>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="318dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#FFD186"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.814" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="398dp"
         android:layout_height="498dp"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="84dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
@@ -189,7 +205,7 @@
         android:textColor="#FFD186"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintHorizontal_bias="0.851"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:layout_constraintVertical_bias="0.0" />
