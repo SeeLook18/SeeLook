@@ -77,10 +77,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginLeft="56dp"
-            android:buttonTint="#FFFFFF"
+            android:buttonTint="#FFD186"
             android:paddingLeft="0dp"
             android:text="자동 로그인"
-            android:textColor="#FFFFFF"
+            android:textColor="#FFD186"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
