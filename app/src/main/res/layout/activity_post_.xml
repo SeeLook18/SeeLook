@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="68dp"
         android:layout_marginTop="155dp"
-        android:background="#FFD186">
+        android:background="#FFFFFF">
 
         <Button
             android:id="@+id/article_button"
