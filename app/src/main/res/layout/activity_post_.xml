@@ -56,7 +56,7 @@
         android:background="#FFFFFF">
 
         <Button
-            android:id="@+id/article_button"
+            android:id="@+id/home"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="28dp"
@@ -68,7 +68,7 @@
             app:layout_constraintVertical_bias="0.571"></Button>
 
         <Button
-            android:id="@+id/face_button"
+            android:id="@+id/face"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
@@ -87,7 +87,7 @@
             android:layout_marginRight="116dp"
             android:background="@drawable/done"
             android:onClick="done_clicked"
-            app:layout_constraintEnd_toStartOf="@+id/face_button"
+            app:layout_constraintEnd_toStartOf="@+id/face"
             app:layout_constraintTop_toTopOf="parent"></Button>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
