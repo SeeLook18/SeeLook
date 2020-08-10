@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFD186"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="SeeLook"
-        android:textColor="#B0D3EF"
+        android:textColor="#FFD186"
         android:textSize="28sp"
         android:textStyle="bold|italic" />
 
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="68dp"
         android:layout_marginTop="155dp"
-        android:background="#B0D3EF">
+        android:background="#FFD186">
 
         <Button
             android:id="@+id/article_button"
