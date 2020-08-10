@@ -114,7 +114,7 @@
 
     <Button
         android:id="@+id/home_btn"
-        android:layout_width="45dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
@@ -127,7 +127,7 @@
 
     <Button
         android:id="@+id/upload_btn"
-        android:layout_width="45dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:background="@drawable/upload"
         android:textColor="#FFD186"
@@ -139,14 +139,14 @@
 
     <Button
         android:id="@+id/profile_btn"
-        android:layout_width="45dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="41dp"
         android:background="@drawable/profile"
         android:textColor="#FFD186"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:layout_constraintVertical_bias="0.075" />
