@@ -22,5 +22,23 @@ public class FindPassword_Activity extends AppCompatActivity {
             }
         });
 
+        final Button id= (Button)findViewById(R.id.id);
+        final Button password= (Button)findViewById(R.id.password);
+
+        id.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                id.setSelected(true);
+                password.setSelected(false);
+            }
+        });
+
+        password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                password.setSelected(true);
+                id.setSelected(false);
+            }
+        });
     }
 }

@@ -5,4 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorlogin_clicked">#778899</color>
     <color name="colorlogin_blue">#55A2E1</color>
+    <color name="main_color">#FFD186</color>
+    <color name="light_grey">#F1F3F5</color>
 </resources>

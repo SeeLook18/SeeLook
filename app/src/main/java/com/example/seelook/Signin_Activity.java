@@ -21,5 +21,24 @@ public class Signin_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        final Button male= (Button)findViewById(R.id.male);
+        final Button female= (Button)findViewById(R.id.female);
+
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                male.setSelected(true);
+                female.setSelected(false);
+            }
+        });
+
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                female.setSelected(true);
+                male.setSelected(false);
+            }
+        });
     }
 }

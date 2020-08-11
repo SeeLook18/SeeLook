@@ -26,14 +26,14 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/back"></Button>
+                android:background="@drawable/back_1"></Button>
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="288dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="회원가입"
+                android:text="계정 생성"
                 android:textColor="#000000"
                 android:textColorLink="#FFFFFF"
                 android:textSize="18sp" />
@@ -44,12 +44,118 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="404dp"
-        android:orientation="vertical"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
+        android:background="@color/light_grey"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="379dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@color/light_grey"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="1dp"
+                android:background="#FFFFFF"
+                android:ems="10"
+                android:hint="이메일"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="15sp"
+                android:textColor="#000000"
+                android:textColorHint="#ADB5BD"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="1dp"
+                android:background="#FFFFFF"
+                android:ems="10"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:paddingLeft="15sp"
+                android:textColor="#000000"
+                android:textColorHint="#ADB5BD"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/password_check"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#FFFFFF"
+                android:ems="10"
+                android:hint="비밀번호 재확인"
+                android:inputType="textPassword"
+                android:paddingLeft="15sp"
+                android:textColor="#000000"
+                android:textColorHint="#ADB5BD"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="379dp"
+            android:layout_height="125dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:background="@color/light_grey"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="1dp"
+                android:background="#FFFFFF"
+                android:hint="이름 설정"
+                android:paddingLeft="15sp"
+                android:textColor="#000000"
+                android:textColorHint="#ADB5BD"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="1dp"
+                android:background="#FFFFFF"
+                android:orientation="horizontal"
+                android:padding="7dp">
+
+                <Button
+                    android:id="@+id/male"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sex_button"
+                    android:text="남자"
+                    android:textColor="@color/sex_text"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/female"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sex_button"
+                    android:text="여자"
+                    android:textColor="@color/sex_text"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="379dp"
+            android:layout_height="146dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical"></LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
