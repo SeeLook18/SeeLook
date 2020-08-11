@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
-            android:text="   #OOTD"
+            android:text="   #HOT"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/darker_gray"
             android:textSize="20sp"
