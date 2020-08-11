@@ -65,7 +65,7 @@
 
                 <EditText
                     android:id="@+id/email"
-                    android:layout_width="250dp"
+                    android:layout_width="280dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="1dp"
                     android:background="#FFFFFF"
@@ -79,12 +79,12 @@
 
                 <Button
                     android:id="@+id/email_button"
-                    android:layout_width="40dp"
+                    android:layout_width="30dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/sex_button"
-                    android:text="인증"
+                    android:text="중복 확인"
                     android:textColor="@color/sex_text" />
             </LinearLayout>
 
@@ -125,18 +125,35 @@
             android:background="@color/light_grey"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/name"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:background="#FFFFFF"
-                android:hint="이름 설정"
-                android:paddingLeft="15sp"
-                android:textColor="#000000"
-                android:textColorHint="#ADB5BD"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="280dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="#FFFFFF"
+                    android:hint="이름 설정"
+                    android:paddingLeft="15sp"
+                    android:textColor="#000000"
+                    android:textColorHint="#ADB5BD"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/name_check"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sex_button"
+                    android:text="중복 확인"
+                    android:textColor="@color/sex_text" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -184,7 +201,7 @@
 
                 <EditText
                     android:id="@+id/phone"
-                    android:layout_width="250dp"
+                    android:layout_width="280dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="1dp"
                     android:background="#FFFFFF"
