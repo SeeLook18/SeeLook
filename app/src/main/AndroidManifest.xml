@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".WorldwideActivity"></activity>
-        <activity android:name=".profile_Activity" />
+        <activity android:name=".WorldwideActivity"/>
+        <activity android:name=".profile_Activity"/>
         <activity android:name=".home_Activity" />
-        <activity android:name=".Signin_Activity" />
-        <activity android:name=".Post_Activity" />
-        <activity android:name=".Login_Activity" />
+        <activity android:name=".Signin_Activity"/>
+        <activity android:name=".Post_Activity"/>
+        <activity android:name=".Login_Activity"/>
         <activity android:name=".FindPassword_Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
