@@ -8,6 +8,54 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="387dp"
+        android:layout_height="64dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.994">
+
+        <Button
+            android:id="@+id/home_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.145"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.529"></Button>
+
+        <Button
+            android:id="@+id/profile_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></Button>
+
+        <Button
+            android:id="@+id/upload_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="176dp"
+            android:layout_marginRight="176dp"
+            android:background="@drawable/upload"
+            android:onClick="done_clicked"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.529"></Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="350dp"
@@ -26,23 +74,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_gravity="center"
-        android:background="@drawable/back"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toStartOf="@+id/searchView"
-        app:layout_constraintHorizontal_bias="0.541"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.782"></Button>
-
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="318dp"
-        android:layout_height="41dp"
+        android:layout_width="371dp"
+        android:layout_height="42dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="#FFD186"
@@ -51,14 +86,14 @@
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.814" />
+        app:layout_constraintVertical_bias="0.885" />
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="367dp"
-        android:layout_height="471dp"
-        android:layout_marginTop="117dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="369dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="110dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -85,26 +120,26 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imageView5"
+                    <VideoView
+                        android:id="@+id/videoView"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/sample" />
+                        android:background="@drawable/sample" />
 
-                    <ImageView
-                        android:id="@+id/imageView3"
+                    <VideoView
+                        android:id="@+id/videoView13"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/sample" />
+                        android:background="@drawable/sample" />
 
-                    <ImageView
-                        android:id="@+id/imageView4"
+                    <VideoView
+                        android:id="@+id/videoView14"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/sample" />
+                        android:background="@drawable/sample" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -124,23 +159,26 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imageView6"
+                    <VideoView
+                        android:id="@+id/videoView15"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/sample" />
+                        android:layout_weight="1"
+                        android:background="@drawable/sample" />
 
-                    <ImageView
-                        android:id="@+id/imageView7"
+                    <VideoView
+                        android:id="@+id/videoView16"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/sample" />
+                        android:layout_weight="1"
+                        android:background="@drawable/sample" />
 
-                    <ImageView
-                        android:id="@+id/imageView8"
+                    <VideoView
+                        android:id="@+id/videoView17"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/sample" />
+                        android:layout_weight="1"
+                        android:background="@drawable/sample" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -148,7 +186,7 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="추천"
+                android:text="RECOMMEND"
                 android:textColor="#FFD186" />
 
             <HorizontalScrollView
@@ -160,67 +198,30 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imageView"
+                    <VideoView
+                        android:id="@+id/videoView19"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/sample" />
+                        android:layout_weight="1"
+                        android:background="@drawable/sample" />
 
-                    <ImageView
-                        android:id="@+id/imageView2"
+                    <VideoView
+                        android:id="@+id/videoView20"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/sample" />
+                        android:layout_weight="1"
+                        android:background="@drawable/sample" />
 
-                    <ImageView
-                        android:id="@+id/imageView9"
+                    <VideoView
+                        android:id="@+id/videoView18"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/sample" />
+                        android:layout_weight="1"
+                        android:background="@drawable/sample" />
                 </LinearLayout>
             </HorizontalScrollView>
 
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/home_btn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:background="@drawable/home"
-        android:textColor="#FFD186"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/upload_btn"
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.489" />
-
-    <Button
-        android:id="@+id/upload_btn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/upload"
-        android:textColor="#FFD186"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.489" />
-
-    <Button
-        android:id="@+id/profile_btn"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:background="@drawable/profile"
-        android:textColor="#FFD186"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.587"
-        app:layout_constraintStart_toEndOf="@+id/upload_btn"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.489" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

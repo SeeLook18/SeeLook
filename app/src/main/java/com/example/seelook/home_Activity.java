@@ -16,6 +16,18 @@ public class home_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_);
 
+        Button btn1 = (Button)findViewById(R.id.home_btn); //새로고침 기능 넣어주기
+        /*btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        Post_Activity.class);
+                startActivity(intent);
+            }
+        });*/
+
+
         Button btn2 = (Button)findViewById(R.id.upload_btn);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override

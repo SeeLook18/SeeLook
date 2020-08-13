@@ -17,7 +17,7 @@ public class Post_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_);
 
-        Button home_btn = (Button)findViewById(R.id.home);
+        Button home_btn = (Button)findViewById(R.id.home_btn);
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,7 +28,7 @@ public class Post_Activity extends AppCompatActivity {
             }
         });
 
-        Button face_btn = (Button)findViewById(R.id.face);
+        Button face_btn = (Button)findViewById(R.id.profile_btn);
         face_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,4 +54,23 @@ public class Post_Activity extends AppCompatActivity {
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
     }
+
+    public void upload_clicked(View v){
+        DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                doTakeAlbumAction();
+            }
+        };
+    }
+
+    public void doTakeAlbumAction() // 앨범에서 이미지 가져오기
+    {
+        // 앨범 호출
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+        startActivity(intent);
+    }
 }
+
+
