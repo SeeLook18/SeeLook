@@ -3,6 +3,8 @@
     package="com.example.seelook">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -17,6 +19,9 @@
         <activity android:name=".Signin_Activity"/>
         <activity android:name=".FindPassword_Activity"/>
         <activity android:name=".Post_Activity"/>
+
+
+
         <activity android:name=".Login_Activity"><!--첫 화면으로 지정-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
