@@ -33,32 +33,6 @@ public class Signin_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_);
 
-        Button back=findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                finish();
-            }
-        });
-
-        final Button male= (Button)findViewById(R.id.male);
-        final Button female= (Button)findViewById(R.id.female);
-
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                male.setSelected(true);
-                female.setSelected(false);
-            }
-        });
-
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                female.setSelected(true);
-                male.setSelected(false);
-            }
-        });
-
         et_user_name = findViewById(R.id.name);
         et_user_email = findViewById(R.id.email);
         et_user_password = findViewById(R.id.password);
@@ -84,6 +58,32 @@ public class Signin_Activity extends AppCompatActivity {
 
                 writeNewUser("1",getUserName,getUserEmail,getUserPassword);
 
+            }
+        });
+
+        Button back=findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                finish();
+            }
+        });
+
+        final Button male= (Button)findViewById(R.id.male);
+        final Button female= (Button)findViewById(R.id.female);
+
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                male.setSelected(true);
+                female.setSelected(false);
+            }
+        });
+
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                female.setSelected(true);
+                male.setSelected(false);
             }
         });
     }
