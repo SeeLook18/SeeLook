@@ -1,202 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/back"></Button>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:layout_marginBottom="50dp"
-            android:text="       SeeLook"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#FFD186"
-            android:textSize="40sp"
-            android:textStyle="bold|italic" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/worldwide"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            android:text="   #HOT"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="410dp"
-        android:layout_height="410dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <VideoView
-                    android:id="@+id/videoView7"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-                <VideoView
-                    android:id="@+id/videoView8"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-                <VideoView
-                    android:id="@+id/videoView9"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <VideoView
-                    android:id="@+id/videoView4"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-                <VideoView
-                    android:id="@+id/videoView5"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-                <VideoView
-                    android:id="@+id/videoView6"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="127dp"
-
-                android:orientation="horizontal">
-
-                <VideoView
-                    android:id="@+id/videoView1"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-
-                <VideoView
-                    android:id="@+id/videoView2"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-                <VideoView
-                    android:id="@+id/videoView3"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="127dp"
-
-                android:orientation="horizontal">
-
-                <VideoView
-                    android:id="@+id/videoView10"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-
-                <VideoView
-                    android:id="@+id/videoView11"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-                <VideoView
-                    android:id="@+id/videoView12"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_margin="3.5dp"
-                    android:background="@android:color/darker_gray"
-                    android:padding="3dp" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="424dp"
-        android:layout_height="82dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="387dp"
+        android:layout_height="64dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.994">
 
@@ -230,13 +49,149 @@
             android:layout_marginEnd="176dp"
             android:layout_marginRight="176dp"
             android:background="@drawable/upload"
-            android:onClick="done_clicked"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.529"></Button>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="350dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="SeeLook"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFD186"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/worldwide"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginTop="96dp"
+        android:clickable="true"
+        android:text=" #Profile"
+        android:textColor="#7A7265"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="369dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="110dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <VideoView
+                    android:id="@+id/videoView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+
+                <VideoView
+                    android:id="@+id/videoView13"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+
+                <VideoView
+                    android:id="@+id/videoView14"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <VideoView
+                    android:id="@+id/videoView15"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+
+                <VideoView
+                    android:id="@+id/videoView16"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+
+                <VideoView
+                    android:id="@+id/videoView17"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <VideoView
+                    android:id="@+id/videoView19"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+
+                <VideoView
+                    android:id="@+id/videoView20"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+
+                <VideoView
+                    android:id="@+id/videoView18"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sample"
+                    android:layout_margin="3dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
