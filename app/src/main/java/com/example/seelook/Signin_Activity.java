@@ -1,5 +1,6 @@
 package com.example.seelook;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,9 +24,11 @@ import java.util.HashMap;
 
 public class Signin_Activity extends AppCompatActivity {
 
-    EditText et_user_name, et_user_email, et_user_password;
+    private static final String TAG="Signin_Activity";
+    EditText et_user_name, et_user_email, et_user_password,et_user_password_check;
     Button btn_register;
 
+    private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
 
     @Override
@@ -35,6 +39,7 @@ public class Signin_Activity extends AppCompatActivity {
         et_user_name = findViewById(R.id.name);
         et_user_email = findViewById(R.id.email);
         et_user_password = findViewById(R.id.password);
+        et_user_password_check = findViewById(R.id.password_check);
         btn_register = findViewById(R.id.register);
 
         //firebase 정의
@@ -48,16 +53,23 @@ public class Signin_Activity extends AppCompatActivity {
                 String getUserName = et_user_name.getText().toString();
                 String getUserEmail = et_user_email.getText().toString();
                 String getUserPassword = et_user_password.getText().toString();
+                String getUserPassword_check=et_user_password_check.getText().toString();
 
-                //hashmap 만들기
-                HashMap result = new HashMap<>();
+                if(getUserPassword.equals(getUserPassword_check)){
+                    Log.d(TAG,"비밀 번호 동일"+getUserName+"/"+getUserEmail+"/"+getUserPassword);
+                    final ProgressDialog Dialog=new ProgressDialog(Signin_Activity.this);
+                    //hashmap 만들기
+                    HashMap result = new HashMap<>();
 
-                result.put("name", getUserName);
-                result.put("email", getUserEmail);
-                result.put("password", getUserPassword);
+                    result.put("name", getUserName);
+                    result.put("email", getUserEmail);
+                    result.put("password", getUserPassword);
 
-                writeNewUser("1",getUserName,getUserEmail,getUserPassword);
-
+                    writeNewUser("1",getUserName,getUserEmail,getUserPassword);
+                }else{
+                    Toast.makeText(Signin_Activity.this,"비밀 번호가 틀렸습니다. 다시 입력해 주세요",Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
 
