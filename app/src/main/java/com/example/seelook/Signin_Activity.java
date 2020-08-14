@@ -1,15 +1,14 @@
 package com.example.seelook;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,6 +51,7 @@ public class Signin_Activity extends AppCompatActivity {
 
                 //hashmap 만들기
                 HashMap result = new HashMap<>();
+
                 result.put("name", getUserName);
                 result.put("email", getUserEmail);
                 result.put("password", getUserPassword);
@@ -91,7 +91,7 @@ public class Signin_Activity extends AppCompatActivity {
     private void writeNewUser(String userId, String name, String email, String password) {
         User user = new User(name, email, password);
 
-        mDatabase.child("users").child(userId).setValue(user)
+        mDatabase.child("users").push().child(userId).setValue(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
