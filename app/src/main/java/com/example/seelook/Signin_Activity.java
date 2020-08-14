@@ -25,7 +25,6 @@ public class Signin_Activity extends AppCompatActivity {
 
     EditText et_user_name, et_user_email, et_user_password;
     Button btn_register;
-    int num_id=1;
 
     private DatabaseReference mDatabase;
 
@@ -57,7 +56,7 @@ public class Signin_Activity extends AppCompatActivity {
                 result.put("email", getUserEmail);
                 result.put("password", getUserPassword);
 
-                writeNewUser(Integer.toString(num_id),getUserName,getUserEmail,getUserPassword);
+                writeNewUser("1",getUserName,getUserEmail,getUserPassword);
 
             }
         });
@@ -87,8 +86,6 @@ public class Signin_Activity extends AppCompatActivity {
                 male.setSelected(false);
             }
         });
-
-        num_id++;
     }
 
     private void writeNewUser(String userId, String name, String email, String password) {
