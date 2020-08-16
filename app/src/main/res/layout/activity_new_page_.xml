@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".NewPage_Activity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -53,33 +52,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.529"></Button>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView"
         android:layout_width="350dp"
         android:layout_height="66dp"
-        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="SeeLook"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFD186"
         android:textSize="40sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.024" />
 
     <TextView
-        android:id="@+id/worldwide"
+        android:id="@+id/hot_page2"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginTop="96dp"
         android:clickable="true"
-        android:text=" #Profile"
+        android:text=" #NEW"
         android:textColor="#7A7265"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.078"
@@ -110,25 +109,25 @@
                     android:id="@+id/videoView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
 
                 <VideoView
                     android:id="@+id/videoView13"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
 
                 <VideoView
                     android:id="@+id/videoView14"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,25 +139,25 @@
                     android:id="@+id/videoView15"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
 
                 <VideoView
                     android:id="@+id/videoView16"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
 
                 <VideoView
                     android:id="@+id/videoView17"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
             </LinearLayout>
 
             <LinearLayout
@@ -170,28 +169,27 @@
                     android:id="@+id/videoView19"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
 
                 <VideoView
                     android:id="@+id/videoView20"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
 
                 <VideoView
                     android:id="@+id/videoView18"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample"
-                    android:layout_margin="3dp"/>
+                    android:background="@drawable/sample" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
