@@ -40,7 +40,7 @@ public class Post_Activity extends AppCompatActivity {
         });
 
         Button add_btn = (Button)findViewById(R.id.add_button);
-        face_btn.setOnClickListener(new View.OnClickListener() {
+        add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
