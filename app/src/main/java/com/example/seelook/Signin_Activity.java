@@ -35,7 +35,6 @@ public class Signin_Activity extends AppCompatActivity {
     private static final String TAG="Signin_Activity";
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private EditText et_user_name, et_user_email, et_user_password,et_user_password_check;
     private Button btn_register;
@@ -84,18 +83,6 @@ public class Signin_Activity extends AppCompatActivity {
             }
         });
 
-        mAuthListener=new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user= firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Log.d(TAG,"onAuthStateChanged:signed in: "+user.getUid());
-                }else{
-                    Log.d(TAG,"onAuthStateChanged:signed out");
-                }
-            }
-        };
-
         Button back=findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -123,12 +110,12 @@ public class Signin_Activity extends AppCompatActivity {
         });
     }
     private void createUser(String email,String password){
-        if(!isValidEmail(email)){
+        if(!isValidEmail(email)){//email 검사 isValidEmail=false 일 경우
             Log.e(TAG,"createAccount: email이 유효하지 않음");
             Toast.makeText(Signin_Activity.this,"Email이 유효하지 않습니다",Toast.LENGTH_SHORT).show();
             return;
         }
-        if(isValidPassword(password)){
+        if(isValidPassword(password)){//password 검
             Log.e(TAG,"createAccount: password가 유효하지 않음");
             Toast.makeText(Signin_Activity.this,"password가 유효하지 않습니다",Toast.LENGTH_SHORT).show();
             return;
@@ -147,27 +134,18 @@ public class Signin_Activity extends AppCompatActivity {
             }
         });
     }
-    public void onStart(){
-        super.onStart();
-        firebaseAuth.addAuthStateListener(mAuthListener);
-    }
-    public void onStop(){
-        super.onStop();
-        if (mAuthListener != null) {
-            firebaseAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
-    private boolean isValidPassword(String target){
+
+    private boolean isValidPassword(String target){//비밀 번호 검사: 6자리 이상 한글 미포함
         Pattern p = Pattern.compile("(^.*(?=.{6,100})(?=.*[0-9])(?=.*[a-zA-Z]).*$)");
 
         Matcher m = p.matcher(target);
-        if (m.find() && !target.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")){
+        if (m.find() && !target.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")){//한글 미포함
             return true;
         }else{
             return false;
         }
     }
-    private boolean isValidEmail(String target) {
+    private boolean isValidEmail(String target) {//email 검사
         if (target == null || TextUtils.isEmpty(target)){
             return false;
         }else{
