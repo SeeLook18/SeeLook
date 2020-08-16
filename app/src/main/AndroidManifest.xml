@@ -3,8 +3,8 @@
     package="com.example.seelook">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,16 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".WorldwideActivity"></activity>
-        <activity android:name=".profile_Activity"/>
-        <activity android:name=".home_Activity" />
-        <activity android:name=".Signin_Activity"/>
-        <activity android:name=".FindPassword_Activity"/>
-        <activity android:name=".Post_Activity"/>
-
-
-
-        <activity android:name=".Login_Activity"><!--첫 화면으로 지정-->
+        <activity android:name=".Profile1_Activity"></activity>
+        <activity android:name=".Home_Activity1" />
+        <activity android:name=".HotPage_Activity" />
+        <activity android:name=".RecommendPage_Activity" />
+        <activity android:name=".NewPage_Activity" />
+        <activity android:name=".Signin_Activity" />
+        <activity android:name=".FindPassword_Activity" />
+        <activity android:name=".Post_Activity" />
+        <activity android:name=".Login_Activity"> <!-- 첫 화면으로 지정 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
