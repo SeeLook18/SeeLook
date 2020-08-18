@@ -100,15 +100,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333">
 
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/add_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="128dp"
-            android:layout_marginLeft="128dp"
-            android:layout_marginTop="80dp"
             android:background="@drawable/add_button"
             android:onClick="upload_clicked"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/videoView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></Button>
     </androidx.constraintlayout.widget.ConstraintLayout>

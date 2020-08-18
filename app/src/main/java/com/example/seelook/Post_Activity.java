@@ -3,13 +3,16 @@ package com.example.seelook;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class Post_Activity extends AppCompatActivity {
@@ -24,12 +28,18 @@ public class Post_Activity extends AppCompatActivity {
     private final int SELECT_IMAGE = 1;
     private final int SELECT_MOVIE = 2;
     private StorageReference mStorageRef;
+    private VideoView videoView;
+    private Button add_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_);
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
+
+        videoView = (VideoView)findViewById(R.id.videoView);
+        videoView.setVisibility(View.INVISIBLE);
 
         Button home_btn = (Button)findViewById(R.id.home_btn);
         home_btn.setOnClickListener(new View.OnClickListener() {
@@ -53,72 +63,56 @@ public class Post_Activity extends AppCompatActivity {
             }
         });
 
-        Button add_btn = (Button)findViewById(R.id.add_button);
+        add_btn = (Button)findViewById(R.id.add_button);
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-
                 i.setType("video/*");
-
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 try {
-
                     startActivityForResult(i, SELECT_MOVIE);
 
                 } catch (android.content.ActivityNotFoundException e) {
-
                     e.printStackTrace();
-
                 }
             }
 
         });
+
+
     }
 
     @Override
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
         super.onActivityResult(requestCode, resultCode, intent);
 
 
-
         if (resultCode == RESULT_OK) {
-
             if (requestCode == SELECT_IMAGE) {
-
                 Uri uri = intent.getData();
-
                 String path = getPath(uri);
-
                 String name = getName(uri);
-
                 String uriId = getUriId(uri);
 
                 Log.e("###",
-
                         "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
-
             } else if (requestCode == SELECT_MOVIE) {
-
                 Uri uri = intent.getData();
-
                 String path = getPath(uri);
-
                 String name = getName(uri);
-
                 String uriId = getUriId(uri);
 
                 Log.e("###",
-
                         "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
+                videoView.setVisibility(View.VISIBLE);
+                videoView.setVideoPath(path);
+                add_btn.setVisibility(View.INVISIBLE);
 
             }
-
         }
-
     }
 
     // 실제 경로 찾기
