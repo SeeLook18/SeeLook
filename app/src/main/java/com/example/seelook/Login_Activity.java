@@ -50,7 +50,7 @@ public class Login_Activity extends AppCompatActivity {
                     Log.d(TAG,"onAuthStateChanged: signed_in: "+user.getUid());
                 }
                 else{
-                    Log.d(TAG,"onAuthStateChanged: signd_out: "+user.getUid());
+                    //Log.d(TAG,"onAuthStateChanged: signd_out: "+user.getUid());됏자나 시발!
                 }
             }
         };
