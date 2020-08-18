@@ -116,7 +116,7 @@ public class Post_Activity extends AppCompatActivity {
                 String uriId = getUriId(uri);
 
                 Log.e("###",
-                        "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
+                        "실제경로 : " + path + "\n파일네임 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
 
 
 
