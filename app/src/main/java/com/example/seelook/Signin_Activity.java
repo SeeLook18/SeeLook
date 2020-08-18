@@ -115,7 +115,7 @@ public class Signin_Activity extends AppCompatActivity {
             Toast.makeText(Signin_Activity.this,"Email이 유효하지 않습니다",Toast.LENGTH_SHORT).show();
             return;
         }
-        if(isValidPassword(password)){//password 검
+        if(!isValidPassword(password)){//password 검
             Log.e(TAG,"createAccount: password가 유효하지 않음");
             Toast.makeText(Signin_Activity.this,"password가 유효하지 않습니다",Toast.LENGTH_SHORT).show();
             return;
@@ -137,13 +137,15 @@ public class Signin_Activity extends AppCompatActivity {
     }
 
     private boolean isValidPassword(String target){//비밀 번호 검사: 6자리 이상 한글 미포함
-        Pattern p = Pattern.compile("(^.*(?=.{6,16})(?=.*[0-9])(?=.*[a-zA-Z]).*$)");
+        String pwPattern ="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{5,}$";
+        Boolean tt=Pattern.matches(pwPattern,target);
 
-        Matcher m = p.matcher(target);
-        if (m.find() && !target.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")){//한글 미포함
-            Toast.makeText(Signin_Activity.this,"비밀 번호는 6자리 이상입니다",Toast.LENGTH_SHORT).show();
+        if (tt==true){
+            Toast.makeText(this,"비밀 번호 맞음",Toast.LENGTH_SHORT).show();
             return true;
-        }else{
+        }
+        else{
+            Toast.makeText(Signin_Activity.this,"비밀 번호는 대소문자 한개 포함, 숫자 한개 포함, 특수 문자 한개 포함해야 합니다",Toast.LENGTH_SHORT).show();
             return false;
         }
     }
