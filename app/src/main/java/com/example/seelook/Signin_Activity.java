@@ -130,16 +130,18 @@ public class Signin_Activity extends AppCompatActivity {
                 }
                 else if(task.isSuccessful()){//가입 성공
                     Toast.makeText(Signin_Activity.this, "가입 성공", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });
     }
 
     private boolean isValidPassword(String target){//비밀 번호 검사: 6자리 이상 한글 미포함
-        Pattern p = Pattern.compile("(^.*(?=.{6,100})(?=.*[0-9])(?=.*[a-zA-Z]).*$)");
+        Pattern p = Pattern.compile("(^.*(?=.{6,16})(?=.*[0-9])(?=.*[a-zA-Z]).*$)");
 
         Matcher m = p.matcher(target);
         if (m.find() && !target.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")){//한글 미포함
+            Toast.makeText(Signin_Activity.this,"비밀 번호는 6자리 이상입니다",Toast.LENGTH_SHORT).show();
             return true;
         }else{
             return false;
