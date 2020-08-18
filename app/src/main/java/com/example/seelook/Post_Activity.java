@@ -16,12 +16,19 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -110,6 +117,9 @@ public class Post_Activity extends AppCompatActivity {
 
                 Log.e("###",
                         "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
+
+
+
                 videoView.setVisibility(View.VISIBLE);
                 String videoFile = "//";
                 Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(videoFile,
@@ -119,6 +129,39 @@ public class Post_Activity extends AppCompatActivity {
                 videoView.setBackground(bitmapDrawable);
                 videoView.setVideoURI(uri);
                 add_btn.setVisibility(View.INVISIBLE);
+
+
+                videoView.setDrawingCacheEnabled(true);
+                videoView.buildDrawingCache();
+                Bitmap bitmap = videoView.getDrawingCache();
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] data = byteArrayOutputStream.toByteArray();
+                StorageReference storageRef = mStorageRef.child(path);
+
+                UploadTask uploadTask = storageRef.putBytes(data);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // onSuccess
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        // onProgress
+                    }
+                }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                        // onPaused
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // onFailure
+                    }
+                });
 
             }
         }
