@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,8 @@ public class Login_Activity extends AppCompatActivity {
 
     private EditText et_user_email, et_user_password;
     private Button btn_login;
+    CheckBox auto_login;
+    Boolean loginChecked;//자동 로그인 체크 여부
 
 
     @Override
@@ -41,6 +45,7 @@ public class Login_Activity extends AppCompatActivity {
         et_user_email=(EditText)findViewById(R.id.user_id);
         et_user_password=(EditText)findViewById(R.id.user_password);
         btn_login=(Button)findViewById(R.id.login_btn);
+        auto_login=(CheckBox)findViewById(R.id.auto_login);
 
         mAuthListener=new FirebaseAuth.AuthStateListener() {
             @Override
@@ -86,6 +91,19 @@ public class Login_Activity extends AppCompatActivity {
                 //공백인 경우
                 else{
                     Toast.makeText(Login_Activity.this,"이메일과 비밀번호를 입력하세요",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        //자동 로그인 체크 박스
+        auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    loginChecked=true;
+                }
+                else{
+                    loginChecked=false;
                 }
             }
         });
