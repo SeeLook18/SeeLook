@@ -115,8 +115,8 @@ public class Post_Activity extends AppCompatActivity {
                 Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(videoFile,
                         MediaStore.Images.Thumbnails.MINI_KIND);
 
-                BitmapDrawable bitmapDrawable = new BitmapDrawable(thumbnail);
-                videoView.setBackgroundDrawable(bitmapDrawable);
+                BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(),thumbnail);
+                videoView.setBackground(bitmapDrawable);
                 videoView.setVideoURI(uri);
                 add_btn.setVisibility(View.INVISIBLE);
 
