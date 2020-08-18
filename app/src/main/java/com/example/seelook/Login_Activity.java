@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,15 +32,20 @@ public class Login_Activity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private EditText et_user_email, et_user_password;
+    private String getUserEmail;
+    private String getUserPassword;
     private Button btn_login;
-    CheckBox auto_login;
-    Boolean loginChecked;//자동 로그인 체크 여부
-
+    private CheckBox auto_login;//체크 박
+    private boolean saveLoginData;//로그인 저장
+    private SharedPreferences appData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_);
+
+        appData = getSharedPreferences("appData",MODE_PRIVATE);
+        load();
 
         mAuth=FirebaseAuth.getInstance();
         //레이아웃이랑 연
@@ -77,33 +84,29 @@ public class Login_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if(saveLoginData){
+            et_user_email.setText(getUserEmail);
+            et_user_password.setText(getUserPassword);
+            auto_login.setChecked(saveLoginData);
+        }
+
         //로그인 버튼
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String getUserEmail = et_user_email.getText().toString();
-                final String getUserPassword = et_user_password.getText().toString();
+
+                getUserEmail = et_user_email.getText().toString();
+                getUserPassword = et_user_password.getText().toString();
 
                 //이메일, 비밀번호가 공백이 아닌 경우
                 if(!getUserEmail.equals("")&&!getUserPassword.equals("")){
+
                     UserLogin(getUserEmail,getUserPassword);
                 }
                 //공백인 경우
                 else{
                     Toast.makeText(Login_Activity.this,"이메일과 비밀번호를 입력하세요",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        //자동 로그인 체크 박스
-        auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
-                    loginChecked=true;
-                }
-                else{
-                    loginChecked=false;
                 }
             }
         });
@@ -119,6 +122,7 @@ public class Login_Activity extends AppCompatActivity {
                 }
                 else if(task.isSuccessful()){
                     Toast.makeText(Login_Activity.this,"로그인 성공",Toast.LENGTH_SHORT).show();
+                    save();
                     Intent intent = new Intent(
                             getApplicationContext(),
                             Home_Activity1.class);
@@ -136,5 +140,19 @@ public class Login_Activity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+    private  void save(){
+        SharedPreferences.Editor editor = appData.edit();
+        editor.putBoolean("SAVE_LOGIN_DATA",auto_login.isChecked());
+        editor.putString("email",getUserEmail);
+        editor.putString("pw",getUserPassword);
+        editor.apply();
+    }
+    private void load(){
+        //SharedPreference 객체.get타입(저장된 이름, 기본 값)
+        //저장된 이름이 존재하지 않을 시 기본 값
+        saveLoginData = appData.getBoolean("SAVE_LOGIN_DATA",false);
+        getUserEmail=appData.getString("email","");
+        getUserPassword=appData.getString("pw","");
     }
 }
