@@ -14,17 +14,22 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.net.URL;
 
 public class Post_Activity extends AppCompatActivity {
 
     private final int SELECT_IMAGE = 1;
     private final int SELECT_MOVIE = 2;
-
+    private StorageReference mStorageRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         Button home_btn = (Button)findViewById(R.id.home_btn);
         home_btn.setOnClickListener(new View.OnClickListener() {
