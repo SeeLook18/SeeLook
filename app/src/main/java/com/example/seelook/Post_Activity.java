@@ -116,7 +116,7 @@ public class Post_Activity extends AppCompatActivity {
                 String uriId = getUriId(uri);
 
                 Log.e("###",
-                        "실제경로 : " + path + "\n파일네임 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
+                        "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
 
                 videoView.setVisibility(View.VISIBLE);
                 String videoFile = "//";
@@ -168,8 +168,11 @@ public class Post_Activity extends AppCompatActivity {
     // 실제 경로 찾기
 
     private String getPath(Uri uri) {
+
         String[] projection = { MediaStore.Images.Media.DATA };
+
         Cursor cursor = managedQuery(uri, projection, null, null, null);
+
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 
         cursor.moveToFirst();
