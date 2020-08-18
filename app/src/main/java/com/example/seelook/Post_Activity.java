@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -40,6 +42,7 @@ public class Post_Activity extends AppCompatActivity {
 
         videoView = (VideoView)findViewById(R.id.videoView);
         videoView.setVisibility(View.INVISIBLE);
+
 
         Button home_btn = (Button)findViewById(R.id.home_btn);
         home_btn.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +111,13 @@ public class Post_Activity extends AppCompatActivity {
                 Log.e("###",
                         "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
                 videoView.setVisibility(View.VISIBLE);
-                videoView.setVideoPath(path);
+                String videoFile = "//";
+                Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(videoFile,
+                        MediaStore.Images.Thumbnails.MINI_KIND);
+
+                BitmapDrawable bitmapDrawable = new BitmapDrawable(thumbnail);
+                videoView.setBackgroundDrawable(bitmapDrawable);
+                videoView.setVideoURI(uri);
                 add_btn.setVisibility(View.INVISIBLE);
 
             }
