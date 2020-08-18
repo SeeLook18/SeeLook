@@ -118,8 +118,6 @@ public class Post_Activity extends AppCompatActivity {
                 Log.e("###",
                         "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
 
-
-
                 videoView.setVisibility(View.VISIBLE);
                 String videoFile = "//";
                 Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(videoFile,
