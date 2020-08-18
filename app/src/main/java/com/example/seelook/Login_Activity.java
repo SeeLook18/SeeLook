@@ -99,7 +99,7 @@ public class Login_Activity extends AppCompatActivity {
                 getUserEmail = et_user_email.getText().toString();
                 getUserPassword = et_user_password.getText().toString();
 
-                //이메일, 비밀번호가 공백이 아닌 경우
+                //이메일, 비밀번호가 공백이 아닌 경우!!
                 if(!getUserEmail.equals("")&&!getUserPassword.equals("")){
 
                     UserLogin(getUserEmail,getUserPassword);
