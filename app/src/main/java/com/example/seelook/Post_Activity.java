@@ -23,7 +23,7 @@ public class Post_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(
                         getApplicationContext(),
-                        Home_Activity1.class);
+                        home_Activity.class);
                 startActivity(intent);
             }
         });
@@ -34,7 +34,7 @@ public class Post_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(
                         getApplicationContext(),
-                        Profile1_Activity.class);
+                        profile_Activity.class);
                 startActivity(intent);
             }
         });
@@ -54,7 +54,7 @@ public class Post_Activity extends AppCompatActivity {
 
     public void done_clicked(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("게시물 작성").setMessage("게시물을 작성하시겠습니까?");
+        builder.setTitle("post??").setMessage("게시물을 작성하시겠습니까?!!");
         builder.setIcon(R.drawable.done);
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override

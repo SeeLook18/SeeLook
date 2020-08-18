@@ -42,7 +42,7 @@ public class Login_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(
                         getApplicationContext(),
-                        Home_Activity1.class);
+                        home_Activity.class);
                 startActivity(intent);
             }
         });
