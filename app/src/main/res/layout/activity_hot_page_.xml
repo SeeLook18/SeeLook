@@ -105,29 +105,29 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView13"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView14"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,29 +135,29 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView15"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView16"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView17"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
             </LinearLayout>
 
             <LinearLayout
@@ -165,29 +165,29 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView19"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView20"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
 
-                <VideoView
+                <ImageView
                     android:id="@+id/videoView18"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sample" />
+                    android:background="@drawable/thumbnail" />
             </LinearLayout>
 
         </LinearLayout>
