@@ -18,7 +18,6 @@ import java.net.URL;
 
 public class Post_Activity extends AppCompatActivity {
 
-    private static final String TAG ="Post_Activity";
     private final int SELECT_IMAGE = 1;
     private final int SELECT_MOVIE = 2;
 
@@ -49,20 +48,27 @@ public class Post_Activity extends AppCompatActivity {
             }
         });
 
-        Button add_btn = (Button)findViewById(R.id.add_button);//파일 업로드
+        Button add_btn = (Button)findViewById(R.id.add_button);
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+
                 i.setType("video/*");
+
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 try {
+
                     startActivityForResult(i, SELECT_MOVIE);
+
                 } catch (android.content.ActivityNotFoundException e) {
+
                     e.printStackTrace();
+
                 }
             }
+
         });
     }
 
@@ -75,35 +81,55 @@ public class Post_Activity extends AppCompatActivity {
 
 
         if (resultCode == RESULT_OK) {
+
             if (requestCode == SELECT_IMAGE) {
+
                 Uri uri = intent.getData();
+
                 String path = getPath(uri);
+
                 String name = getName(uri);
+
                 String uriId = getUriId(uri);
+
                 Log.e("###",
+
                         "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
 
             } else if (requestCode == SELECT_MOVIE) {
+
                 Uri uri = intent.getData();
+
                 String path = getPath(uri);
+
                 String name = getName(uri);
+
                 String uriId = getUriId(uri);
 
                 Log.e("###",
 
                         "실제경로 : " + path + "\n파일명 : " + name + "\nuri : " + uri.toString() + "\nuri id : " + uriId);
+
             }
+
         }
+
     }
 
     // 실제 경로 찾기
 
     private String getPath(Uri uri) {
+
         String[] projection = { MediaStore.Images.Media.DATA };
+
         Cursor cursor = managedQuery(uri, projection, null, null, null);
+
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
         cursor.moveToFirst();
+
         return cursor.getString(column_index);
+
     }
 
 
@@ -111,11 +137,17 @@ public class Post_Activity extends AppCompatActivity {
     // 파일명 찾기
 
     private String getName(Uri uri) {
+
         String[] projection = { MediaStore.Images.ImageColumns.DISPLAY_NAME };
+
         Cursor cursor = managedQuery(uri, projection, null, null, null);
+
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DISPLAY_NAME);
+
         cursor.moveToFirst();
+
         return cursor.getString(column_index);
+
     }
 
 
@@ -123,11 +155,17 @@ public class Post_Activity extends AppCompatActivity {
     // uri 아이디 찾기
 
     private String getUriId(Uri uri) {
+
         String[] projection = { MediaStore.Images.ImageColumns._ID };
+
         Cursor cursor = managedQuery(uri, projection, null, null, null);
+
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID);
+
         cursor.moveToFirst();
+
         return cursor.getString(column_index);
+
     }
 
 
