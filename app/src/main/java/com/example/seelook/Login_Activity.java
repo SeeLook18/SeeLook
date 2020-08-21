@@ -103,6 +103,7 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=firebaseAuth.getCurrentUser();
+                //user 정보
                 if (user != null) {
                     Log.d(TAG,"onAuthStateChanged: signed_in: "+user.getUid());
                 }
