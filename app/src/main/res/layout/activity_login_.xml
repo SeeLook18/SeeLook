@@ -50,6 +50,7 @@
                     android:paddingLeft="10dp"
                     android:textColor="#000000"
                     android:textColorHint="#ADB5BD"
+                    android:inputType="textEmailAddress"
                     android:textSize="16sp" />
 
                 <EditText
@@ -63,6 +64,7 @@
                     android:paddingLeft="10dp"
                     android:textColor="#000000"
                     android:textColorHint="#ADB5BD"
+                    android:inputType="textPassword"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>

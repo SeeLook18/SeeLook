@@ -28,14 +28,14 @@ public class Login_Activity extends AppCompatActivity {
 
     private static final String TAG="Login_Activity";
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth firebaseAuth;//인증 관련 라이브러리 객체
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     private EditText et_user_email, et_user_password;
     private String getUserEmail;
     private String getUserPassword;
     private Button btn_login;
-    private CheckBox auto_login;//체크 박
+    private CheckBox auto_login;//체크 박스
     private boolean saveLoginData;//로그인 저장
     private SharedPreferences appData;
 
@@ -45,27 +45,16 @@ public class Login_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login_);
 
         appData = getSharedPreferences("appData",MODE_PRIVATE);
-        load();
+        load();//자동 로그인 정보 로드
 
-        mAuth=FirebaseAuth.getInstance();
-        //레이아웃이랑 연
+        //초기화
+        firebaseAuth=FirebaseAuth.getInstance();
+        //레이아웃이랑 연결
         et_user_email=(EditText)findViewById(R.id.user_id);
         et_user_password=(EditText)findViewById(R.id.user_password);
         btn_login=(Button)findViewById(R.id.login_btn);
         auto_login=(CheckBox)findViewById(R.id.auto_login);
 
-        mAuthListener=new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user=firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Log.d(TAG,"onAuthStateChanged: signed_in: "+user.getUid());
-                }
-                else if(user==null){
-                    Log.d(TAG,"onAuthStateChanged: signd_out: "+user.getUid());
-                }
-            }
-        };
         //아이디 비밀 번호 찾기
         final TextView password_button = (TextView)findViewById(R.id.findpassword);
         password_button.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +90,6 @@ public class Login_Activity extends AppCompatActivity {
 
                 //이메일, 비밀번호가 공백이 아닌 경우!!
                 if(!getUserEmail.equals("")&&!getUserPassword.equals("")){
-
                     UserLogin(getUserEmail,getUserPassword);
                 }
                 //공백인 경우
@@ -110,35 +98,51 @@ public class Login_Activity extends AppCompatActivity {
                 }
             }
         });
+
+        firebaseAuthListener  = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user=firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.d(TAG,"onAuthStateChanged: signed_in: "+user.getUid());
+                }
+                else if(user==null){
+                    Log.d(TAG,"onAuthStateChanged: signd_out: "+user.getUid());
+                }
+            }
+        };
     }
     private void UserLogin(String email,String password){
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(TAG,"signInWithEmail:onComplete: "+task.isSuccessful());
-                if(!task.isSuccessful()){
-                    Log.w(TAG,"signInWithEmail:failed",task.getException());
-                    Toast.makeText(Login_Activity.this,"로그인 실패",Toast.LENGTH_SHORT).show();
-                }
-                else if(task.isSuccessful()){
+                if(task.isSuccessful()){
+                    Log.d(TAG,"signInwithEmail:success");
                     Toast.makeText(Login_Activity.this,"로그인 성공",Toast.LENGTH_SHORT).show();
-                    save();
+                    save();//자동 로그인 정보 저장
+                    //성공 시 홈 화면으로 이동
+                    firebaseAuth.addAuthStateListener(firebaseAuthListener);
                     Intent intent = new Intent(
                             getApplicationContext(),
                             Home_Activity1.class);
                     startActivity(intent);
                 }
+                else{
+                    Log.w(TAG,"signInwithEmail:fail",task.getException());
+                    Toast.makeText(Login_Activity.this,"아이디 또는 비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
+    //현재 유저의 상태(로그인) 확인
     public void onStart(){
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
     }
     public void onStop(){
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+        if (firebaseAuthListener != null) {
+            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
     private  void save(){

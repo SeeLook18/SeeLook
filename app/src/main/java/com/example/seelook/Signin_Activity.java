@@ -35,7 +35,6 @@ public class Signin_Activity extends AppCompatActivity {
     private static final String TAG="Signin_Activity";
 
     private FirebaseAuth firebaseAuth;
-
     private EditText et_user_name, et_user_email, et_user_password,et_user_password_check;
     private Button btn_register;
 
@@ -69,10 +68,10 @@ public class Signin_Activity extends AppCompatActivity {
                     //동일한 비밀번호 체크
                     if(getUserPassword.equals(getUserPassword_check)){
                         Log.d(TAG,"비밀 번호 동일/"+getUserName+"/"+getUserEmail+"/"+getUserPassword);
-                        createUser(getUserEmail,getUserPassword);
+                        createUser(getUserEmail,getUserPassword,getUserName);
                     }
                     else{
-                        Toast.makeText(Signin_Activity.this,"비밀 번호가 틀렸습니다. 다시 입력해 주세요",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Signin_Activity.this,"비밀번호 일치하지않습니다. 다시 입력해 주세요",Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -109,28 +108,33 @@ public class Signin_Activity extends AppCompatActivity {
             }
         });
     }
-    private void createUser(String email,String password){
+    //회원가입
+    private void createUser(String email,String password,String name){
         if(!isValidEmail(email)){//email 검사 isValidEmail=false 일 경우
             Log.e(TAG,"createAccount: email이 유효하지 않음");
             Toast.makeText(Signin_Activity.this,"Email이 유효하지 않습니다",Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!isValidPassword(password)){//password 검
+        if(!isValidPassword(password)){//password 검사
             Log.e(TAG,"createAccount: password가 유효하지 않음");
             Toast.makeText(Signin_Activity.this,"password가 유효하지 않습니다",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-                if (!task.isSuccessful()) {//가입 실패시 시
-                    Toast.makeText(Signin_Activity.this,"인증 실패",Toast.LENGTH_SHORT).show();
-                }
-                else if(task.isSuccessful()){//가입 성공
-                    Toast.makeText(Signin_Activity.this, "가입 성공", Toast.LENGTH_SHORT).show();
+                if(task.isSuccessful()){
+                    Log.d(TAG,"createUserWithEmail:success");
+                    FirebaseUser user = firebaseAuth.getCurrentUser();//현재 로그인한 사용자 가져오기
+                    Toast.makeText(Signin_Activity.this,"회원가입 성공",Toast.LENGTH_SHORT).show();
                     finish();
+                }
+                else{//계정이 중복된 경우
+                    Log.w(TAG,"createUserWithEmail:fail",task.getException());
+                    Toast.makeText(Signin_Activity.this,"이미 존재하는 계정입니다.",Toast.LENGTH_SHORT).show();
+                    //UI
                 }
             }
         });
@@ -141,7 +145,7 @@ public class Signin_Activity extends AppCompatActivity {
         Boolean tt=Pattern.matches(pwPattern,target);
 
         if (tt==true){
-            Toast.makeText(this,"비밀 번호 맞음",Toast.LENGTH_SHORT).show();
+            Log.d(TAG,"비밀 번호 조건 만족");
             return true;
         }
         else{
