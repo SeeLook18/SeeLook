@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Profile1_Activity"></activity>
+        <activity android:name=".Auth_Email_Activity"></activity>
+        <activity android:name=".Profile1_Activity" />
         <activity android:name=".Home_Activity1" />
         <activity android:name=".HotPage_Activity" />
         <activity android:name=".RecommendPage_Activity" />

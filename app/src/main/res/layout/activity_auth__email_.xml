@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context=".Signin_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/back_1"></Button>
+
+            <TextView
+                android:layout_width="288dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="이메일 인증"
+                android:textColor="#000000"
+                android:textColorLink="#FFFFFF"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="이메일로 발송 된 인증 번호를 적어주세요."
+        android:layout_margin="30dp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:id="@+id/emailAuth_time_counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:text="3:00"
+        android:textColor="#878A8E"
+        android:textSize="30sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@color/light_grey"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/email_check"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="1dp"
+                android:background="#FFFFFF"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="이메일 인증 번호 입력"
+                android:textColor="#000000"
+                android:textColorHint="#ADB5BD"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/register"
+            android:layout_width="379dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_button"
+            android:text="인증 번호 확인" />
+    </LinearLayout>
+</LinearLayout>

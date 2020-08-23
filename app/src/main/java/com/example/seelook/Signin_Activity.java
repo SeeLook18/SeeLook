@@ -1,8 +1,11 @@
 package com.example.seelook;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +39,7 @@ public class Signin_Activity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private EditText et_user_name, et_user_email, et_user_password,et_user_password_check;
-    private Button btn_register;
+    private Button btn_register,btn_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,18 @@ public class Signin_Activity extends AppCompatActivity {
         et_user_password = (EditText) findViewById(R.id.password);
         et_user_password_check = (EditText) findViewById(R.id.password_check);
         btn_register = (Button)findViewById(R.id.register);
+        btn_email=(Button)findViewById(R.id.email_button);//이메일 인증 버튼
 
+        //이메일 인증 버튼
+        btn_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        Auth_Email_Activity.class);
+                startActivity(intent);
+            }
+        });
         //회원가입 버튼
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,25 +100,6 @@ public class Signin_Activity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 finish();
-            }
-        });
-
-        final Button male= (Button)findViewById(R.id.male);
-        final Button female= (Button)findViewById(R.id.female);
-
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                male.setSelected(true);
-                female.setSelected(false);
-            }
-        });
-
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                female.setSelected(true);
-                male.setSelected(false);
             }
         });
     }
