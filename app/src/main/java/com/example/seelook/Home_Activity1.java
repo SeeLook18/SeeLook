@@ -17,14 +17,13 @@ import com.google.firebase.database.annotations.NotNull;
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
-public class Home_Activity1 extends AppCompatActivity implements AutoPermissionsListener {
+public class Home_Activity1 extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_1);
 
-        AutoPermissions.Companion.loadAllPermissions(this,101);
         Button btn1 = (Button)findViewById(R.id.home_btn); //새로고침 기능 넣어주기
         /*btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,15 +90,5 @@ public class Home_Activity1 extends AppCompatActivity implements AutoPermissions
                 startActivity(intent);
             }
         });
-    }
-    public void onRequestPermissionsResult(int requestCode,String permissions[],int[] grantResults){
-        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
-        AutoPermissions.Companion.parsePermissions(this,requestCode,permissions,this);
-    }
-    public void onDenied(int requestCode, @NotNull String[] permissions){
-        Toast.makeText(this,"앱 접근 권한 : 거부 ",Toast.LENGTH_LONG).show();
-    }
-    public void onGranted(int requestCode,@NotNull String[] permissions){
-        Toast.makeText(this,"앱 접근 권한 : 허용 ",Toast.LENGTH_LONG).show();
     }
 }
