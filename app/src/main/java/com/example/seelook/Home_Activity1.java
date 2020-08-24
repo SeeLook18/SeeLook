@@ -14,8 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.annotations.NotNull;
-import com.pedro.library.AutoPermissions;
-import com.pedro.library.AutoPermissionsListener;
+
 
 public class Home_Activity1 extends AppCompatActivity{
 

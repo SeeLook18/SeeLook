@@ -3,6 +3,7 @@ package com.example.seelook;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,11 @@ public class Signin_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_);
 
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+        .permitDiskReads()
+        .permitDiskWrites()
+        .permitNetwork().build());
+
         //firebase 정의
         firebaseAuth=FirebaseAuth.getInstance();
 
@@ -61,6 +67,8 @@ public class Signin_Activity extends AppCompatActivity {
         btn_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SendMail mailServer=new SendMail();
+                mailServer.sendSecurityCode(getApplicationContext(),et_user_email.getText().toString());
                 Intent intent = new Intent(
                         getApplicationContext(),
                         Auth_Email_Activity.class);

@@ -84,7 +84,6 @@ public class Login_Activity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 getUserEmail = et_user_email.getText().toString();
                 getUserPassword = et_user_password.getText().toString();
 
@@ -146,6 +145,7 @@ public class Login_Activity extends AppCompatActivity {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
+    //자동 로그인 위
     private  void save(){
         SharedPreferences.Editor editor = appData.edit();
         editor.putBoolean("SAVE_LOGIN_DATA",auto_login.isChecked());
