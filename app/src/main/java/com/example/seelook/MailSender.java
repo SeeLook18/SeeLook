@@ -25,7 +25,7 @@ public class MailSender extends javax.mail.Authenticator {
     public MailSender(String user, String password) {
         this.user = user;
         this.password = password;
-        emailCode = createEmailCode();
+        emailCode = createEmailCode();//인증 번호
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.host", mailhost);
@@ -62,7 +62,7 @@ public class MailSender extends javax.mail.Authenticator {
         //해당 메서드에서 사용자의 계정(id & password)을 받아 인증받으며 인증 실패시 기본값으로 반환됨.
         return new PasswordAuthentication(user, password);
     }
-
+    //메일 보
     public synchronized void sendMail(String subject, String body, String recipients) throws Exception {
         MimeMessage message = new MimeMessage(session);
         DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain")); //본문 내용을 byte단위로 쪼개어 전달
@@ -73,7 +73,7 @@ public class MailSender extends javax.mail.Authenticator {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
         else
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
-        Transport.send(message); //메시지 전달
+        Transport.send(message); //메시지 전달냄
     }
 
     public class ByteArrayDataSource implements DataSource {

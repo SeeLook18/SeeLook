@@ -41,6 +41,7 @@ public class Signin_Activity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private EditText et_user_name, et_user_email, et_user_password,et_user_password_check;
     private Button btn_register,btn_email;
+    private String randomcode;//인증번
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +68,16 @@ public class Signin_Activity extends AppCompatActivity {
         btn_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //메일 보낼 곳 설정
                 SendMail mailServer=new SendMail();
                 mailServer.sendSecurityCode(getApplicationContext(),et_user_email.getText().toString());
+                randomcode= mailServer.getRandomcode();//인증 번호
+                Log.d(TAG,"인증번호: "+randomcode);
+                //전달 부터 문제
                 Intent intent = new Intent(
                         getApplicationContext(),
                         Auth_Email_Activity.class);
+                intent.putExtra("randomcode",randomcode);
                 startActivity(intent);
             }
         });
