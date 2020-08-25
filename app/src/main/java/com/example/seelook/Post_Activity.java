@@ -2,6 +2,7 @@ package com.example.seelook;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,12 +42,19 @@ public class Post_Activity extends AppCompatActivity {
     //하단 바 메뉴
     private Button home_btn;
     private Button profile_btn;
+    private String saveLoginData;
+    private String getUserEmail;
+    private String getUserPassword;
+    private SharedPreferences appData;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_);
+
+        appData = getSharedPreferences("appData",MODE_PRIVATE);
+        load();//자동 로그인 정보 로드
 
         videoView = (VideoView)findViewById(R.id.videoView);
         videoView.setVisibility(View.INVISIBLE);
@@ -113,7 +121,7 @@ public class Post_Activity extends AppCompatActivity {
 
                 //firebase 업로드
                 Uri file = Uri.fromFile(new File(path));
-                StorageReference mStorageRef = storageRef.child("sample/"+file.getLastPathSegment());
+                StorageReference mStorageRef = storageRef.child(getUserEmail+"/"+file.getLastPathSegment());
                 uploadTask = mStorageRef.putFile(file);
 
                 // Register observers to listen for when the download is done or if it fails
@@ -168,6 +176,12 @@ public class Post_Activity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    private void load(){
+        //SharedPreference 객체.get타입(저장된 이름, 기본 값)
+        //저장된 이름이 존재하지 않을 시 기본 값
+        getUserEmail=appData.getString("email","");
+        getUserPassword=appData.getString("pw","");
+    }
 }
 
 
