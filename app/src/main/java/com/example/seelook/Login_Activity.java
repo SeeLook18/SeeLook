@@ -64,6 +64,7 @@ public class Login_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         //회원 가입 글자
         TextView signin_button= (TextView)findViewById(R.id.signin);
         signin_button.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +94,7 @@ public class Login_Activity extends AppCompatActivity {
                 }
                 //공백인 경우
                 else{
-                    Toast.makeText(Login_Activity.this,"이메일과 비밀번호를 입력하세요",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login_Activity.this,"이메일 또는 비밀번호를 입력해주세요 ",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -112,6 +113,7 @@ public class Login_Activity extends AppCompatActivity {
             }
         };
     }
+
     private void UserLogin(String email,String password){
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -130,11 +132,12 @@ public class Login_Activity extends AppCompatActivity {
                 }
                 else{
                     Log.w(TAG,"signInwithEmail:fail",task.getException());
-                    Toast.makeText(Login_Activity.this,"아이디 또는 비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login_Activity.this,"가입되지 않은 이메일 이거나, 잘못된 비밀번호 입니다.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
     //현재 유저의 상태(로그인) 확인
     public void onStart(){
         super.onStart();
@@ -145,6 +148,7 @@ public class Login_Activity extends AppCompatActivity {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
+
     //자동 로그인 위
     private  void save(){
         SharedPreferences.Editor editor = appData.edit();
@@ -153,6 +157,7 @@ public class Login_Activity extends AppCompatActivity {
         editor.putString("pw",getUserPassword);
         editor.apply();
     }
+
     private void load(){
         //SharedPreference 객체.get타입(저장된 이름, 기본 값)
         //저장된 이름이 존재하지 않을 시 기본 값
