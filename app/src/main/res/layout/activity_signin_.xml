@@ -58,7 +58,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2.5dp"
+                android:layout_marginBottom="1dp"
                 android:background="#FFFFFF"
                 android:orientation="horizontal">
 
@@ -90,7 +90,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="2.5dp"
+                android:layout_marginBottom="1dp"
                 android:background="#FFFFFF"
                 android:orientation="horizontal">
 
@@ -117,24 +117,27 @@
                     android:text="확인"
                     android:textColor="@color/sex_text" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autoText="false"
-                android:background="#0FFFFFFF"
-                android:text=" 이메일 인증 성공"
-                android:textColor="#EA1C0C"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:textSize="14sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="2.5dp"
+                android:paddingLeft="10dp"
+                android:background="#FFFFFF">
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoText="false"
+                    android:text=" 이메일 인증 성공"
+                    android:textColor="#EA1C0C"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textColorLink="#FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:background="#FFFFFF"
                 android:orientation="horizontal">
 
@@ -164,24 +167,29 @@
                 android:textColorHint="#ADB5BD"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textView3"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autoText="false"
-                android:background="#0FFFFFFF"
-                android:text="  6자 이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요."
-                android:textColor="#EA1C0C"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:textSize="14sp" />
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:background="#FFFFFF">
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoText="false"
+                    android:text="  6자 이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요."
+                    android:textColor="#EA1C0C"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textColorLink="#FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/password_check"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="2.5dp"
+                android:layout_marginBottom="1dp"
                 android:background="#FFFFFF"
                 android:ems="10"
                 android:hint="비밀번호 재확인"

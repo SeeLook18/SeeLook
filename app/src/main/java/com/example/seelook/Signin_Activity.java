@@ -68,7 +68,7 @@ public class Signin_Activity extends AppCompatActivity {
         email_confirm_alarm=(TextView)findViewById(R.id.textView11);//이메일 인증 성공여부 멘트
         email_confirm_alarm.setVisibility(View.INVISIBLE);
 
-        email_confirm=Boolean.FALSE;
+        email_confirm=Boolean.FALSE;//이메일 인증 여부
 
         //이메일 인증 버튼
         btn_email.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +78,7 @@ public class Signin_Activity extends AppCompatActivity {
                 SendMail mailServer=new SendMail();
                 mailServer.sendSecurityCode(getApplicationContext(),et_user_email.getText().toString());
                 randomcode= mailServer.getRandomcode();//인증 번호
+                countDownTimer();//타이머 시작
             }
         });
 
@@ -105,8 +106,6 @@ public class Signin_Activity extends AppCompatActivity {
             }
         });
 
-        countDownTimer(); //이거 여기 넣는거맞남?? (합치면 위치 바뀌나 해서...)
-
         //회원가입 버튼
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +125,7 @@ public class Signin_Activity extends AppCompatActivity {
                             createUser(getUserEmail,getUserPassword,getUserName);
                         }
                         else{
-                            Toast.makeText(Signin_Activity.this,"비밀번호 일치하지않습니다. 다시 입력해 주세요",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Signin_Activity.this,"비밀번호가 일치하지않습니다. 다시 입력해 주세요",Toast.LENGTH_SHORT).show();
                             //return;
                         }
                     }
@@ -190,7 +189,6 @@ public class Signin_Activity extends AppCompatActivity {
             return true;
         }
         else{
-            //Toast.makeText(Signin_Activity.this,"비밀 번호는 대소문자 한개 포함, 숫자 한개 포함, 특수 문자 한개 포함해야 합니다",Toast.LENGTH_SHORT).show();
             password_error.setVisibility(View.VISIBLE); //왜 바탕색이 회색인게냐!!!!!!
             return false;
         }
