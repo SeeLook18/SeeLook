@@ -5,9 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -16,16 +23,19 @@ public class Profile1_Activity extends AppCompatActivity {
     private String getUserEmail;
     private String getUserPassword;
     private SharedPreferences appData;
+    private DatabaseReference mDatabase;
 
     FirebaseStorage storage=FirebaseStorage.getInstance();
     StorageReference storageRef=storage.getReference();
     StorageReference pathReference=storageRef.child("getUserEmail");//storage내부의 폴더안의 파일명을 가리키는 참조 생성
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile1_);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         appData = getSharedPreferences("appData",MODE_PRIVATE);
         load();//자동 로그인 정보 로드
 
@@ -57,7 +67,21 @@ public class Profile1_Activity extends AppCompatActivity {
             }
         });
     }
+
+
     public void getStorage(){
+        mDatabase.child(getUserEmail).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
         //개수만큼 영상 보이게
         //Glide??
     }
