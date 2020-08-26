@@ -74,7 +74,7 @@ public class Profile1_Activity extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
+                        PostModel user = dataSnapshot.getValue(PostModel.class);
                     }
 
                     @Override
