@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -29,7 +31,7 @@ import java.io.File;
 public class Post_Activity extends AppCompatActivity {
 
     private final int SELECT_MOVIE = 2;
-
+    private FirebaseAuth mAuth;
     private VideoView videoView;
     private Button add_btn; //영상 가져오기
     //private TextView post_title; //제목을 입력하세요
@@ -37,7 +39,6 @@ public class Post_Activity extends AppCompatActivity {
 
     private StorageReference storageRef;
     private UploadTask uploadTask;
-
 
     //하단 바 메뉴
     private Button home_btn;
@@ -47,6 +48,11 @@ public class Post_Activity extends AppCompatActivity {
     private String getUserPassword;
     private SharedPreferences appData;
 
+    private String path;//절대 경
+    private EditText et_title;
+    private EditText et_content;
+    private String title;//제목
+    private String content;//내용
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +61,10 @@ public class Post_Activity extends AppCompatActivity {
 
         appData = getSharedPreferences("appData",MODE_PRIVATE);
         load();//자동 로그인 정보 로드
+        mAuth=FirebaseAuth.getInstance();
 
         videoView = (VideoView)findViewById(R.id.videoView);
-        videoView.setVisibility(View.INVISIBLE);
+        videoView.setVisibility(View.INVISIBLE);//안보이게?
 
         MediaController mc = new MediaController(this);
         videoView.setMediaController(mc); // Video View 에 사용할 컨트롤러 지정
@@ -110,17 +117,17 @@ public class Post_Activity extends AppCompatActivity {
     }
 
     @Override
-
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_MOVIE) {
                 Uri uri = intent.getData();
-                String path = getPath(uri);
+                path = getPath(uri);//경로 찾기
 
                 //firebase 업로드
                 Uri file = Uri.fromFile(new File(path));
+                //storage에 절대경로 파일 저장
                 StorageReference mStorageRef = storageRef.child(getUserEmail+"/"+file.getLastPathSegment());
                 uploadTask = mStorageRef.putFile(file);
 
@@ -129,7 +136,7 @@ public class Post_Activity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         // Handle unsuccessful uploads
-                        //Toast.makeText(Post_Activity.this, "이미지 업로드 실패", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Post_Activity.this, "이미지 업로드 실패", Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -137,7 +144,9 @@ public class Post_Activity extends AppCompatActivity {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                         // ...
                         //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        //Toast.makeText(Post_Activity.this, "이미지 업로드 성공", Toast.LENGTH_LONG).show();
+                        PostModel postModel=new PostModel();
+                        postModel.myid=getUserEmail;
+                        Toast.makeText(Post_Activity.this, "이미지 업로드 성공", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -151,7 +160,7 @@ public class Post_Activity extends AppCompatActivity {
         }
     }
 
-    // 실제 경로 찾기
+    // 실제 경로 찾기: uri 절대 경로 가져오기
     private String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
         Cursor cursor = managedQuery(uri, projection, null, null, null);
@@ -159,9 +168,15 @@ public class Post_Activity extends AppCompatActivity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
-
-
+    //체크 버튼
     public void done_clicked(View v) {
+        et_title=(EditText)findViewById(R.id.editTextTitle);
+        et_content=(EditText)findViewById(R.id.editTextContent);
+        title = et_title.getText().toString();
+        content = et_content.getText().toString();
+
+        final String uid=mAuth.getCurrentUser().getUid();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("게시물 작성").setMessage("게시물을 작성하시겠습니까?");
         builder.setIcon(R.drawable.done);
@@ -174,6 +189,8 @@ public class Post_Activity extends AppCompatActivity {
         builder.setNegativeButton("취소", null).show();
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
+
+
     }
 
     private void load(){

@@ -121,7 +121,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextContent"
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:background="#FFFFFF"
