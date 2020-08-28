@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -30,11 +36,15 @@ import java.io.File;
 
 public class Post_Activity extends AppCompatActivity {
 
+    private static final String TAG="Post_Activity";
+
     private final int SELECT_MOVIE = 2;
-    private FirebaseAuth mAuth;
     private VideoView videoView;
     private Button add_btn; //영상 가져오기
 
+    //database위함
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth mAuth;
     private StorageReference storageRef;
     private UploadTask uploadTask;
 
@@ -62,6 +72,7 @@ public class Post_Activity extends AppCompatActivity {
         appData = getSharedPreferences("appData",MODE_PRIVATE);
         load();//자동 로그인 정보 로드
         mAuth=FirebaseAuth.getInstance();
+        firebaseDatabase=FirebaseDatabase.getInstance();
 
         videoView = (VideoView)findViewById(R.id.videoView);
         videoView.setVisibility(View.INVISIBLE);//안보이게?
@@ -117,14 +128,7 @@ public class Post_Activity extends AppCompatActivity {
         upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                et_title=(EditText)findViewById(R.id.editTextTitle);
-                et_content=(EditText)findViewById(R.id.editTextContent);
-                title = et_title.getText().toString();//제목
-                content = et_content.getText().toString();//내용
-
-                final String uid=mAuth.getCurrentUser().getUid();
-                alert();
-
+                alert();//알림창이랑 업로드
             }
         });
 
@@ -138,8 +142,6 @@ public class Post_Activity extends AppCompatActivity {
             if (requestCode == SELECT_MOVIE) {
                 Uri uri = intent.getData();
                 path = getPath(uri);//경로 찾기
-
-
 
                 videoView.setVisibility(View.VISIBLE);
                 videoView.setVideoURI(uri);
@@ -180,7 +182,6 @@ public class Post_Activity extends AppCompatActivity {
         alertDialog.show();
     }
 
-
     private void load(){
         //SharedPreference 객체.get타입(저장된 이름, 기본 값)
         //저장된 이름이 존재하지 않을 시 기본 값
@@ -188,9 +189,17 @@ public class Post_Activity extends AppCompatActivity {
         getUserPassword=appData.getString("pw","");
     }
 
+    //firebase 업로드
     private void uploadFirebase() {
-        //firebase 업로드
-        Uri file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
+        et_title=(EditText)findViewById(R.id.editTextTitle);
+        et_content=(EditText)findViewById(R.id.editTextContent);
+        title = et_title.getText().toString();//제목
+        content = et_content.getText().toString();//내용
+
+        final String uid=mAuth.getCurrentUser().getUid();
+        final Uri file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
+        Log.d(TAG,"photo file: "+file);
+
         //storage에 절대경로 파일 저장
         StorageReference mStorageRef = storageRef.child(getUserEmail + "/" + file.getLastPathSegment());
         uploadTask = mStorageRef.putFile(file);
@@ -204,11 +213,38 @@ public class Post_Activity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                final Task<Uri> imageUrl= uploadTask.getResult().getStorage().getDownloadUrl();
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
                 //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                PostModel postModel=new PostModel();
-                postModel.myid=getUserEmail;
+                firebaseDatabase.getReference().child("users").child(uid)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                UserModel userModel=dataSnapshot.getValue(UserModel.class);
+                                Log.d(TAG,"userName: "+userModel.userName);
+
+                                PostModel postModel=new PostModel();
+                                postModel.myid=getUserEmail;//업로드한 유저 정보 (게시물 정보)
+                                postModel.photo=imageUrl.getResult().toString();
+                                postModel.photoName=file.getLastPathSegment();
+                                postModel.title=title;
+                                postModel.contents=content;
+                                postModel.username=userModel.userName;
+
+                                firebaseDatabase.getReference().child("contents").child("content").push()
+                                        .setValue(postModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                 Toast.makeText(Post_Activity.this, "영상 업로드 성공", Toast.LENGTH_LONG).show();
             }
         });
