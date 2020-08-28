@@ -34,8 +34,6 @@ public class Post_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private VideoView videoView;
     private Button add_btn; //영상 가져오기
-    //private TextView post_title; //제목을 입력하세요
-    //private TextView post_content; //설명을 입력하세요
 
     private StorageReference storageRef;
     private UploadTask uploadTask;
@@ -43,12 +41,14 @@ public class Post_Activity extends AppCompatActivity {
     //하단 바 메뉴
     private Button home_btn;
     private Button profile_btn;
+    private Button upload_btn;
+
     private String saveLoginData;
     private String getUserEmail;
     private String getUserPassword;
     private SharedPreferences appData;
 
-    private String path;//절대 경
+    private String path;//절대 경로
     private EditText et_title;
     private EditText et_content;
     private String title;//제목
@@ -93,6 +93,7 @@ public class Post_Activity extends AppCompatActivity {
             }
         });
 
+        //영상 불러오기
         add_btn = (Button)findViewById(R.id.add_button);
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +112,21 @@ public class Post_Activity extends AppCompatActivity {
 
         });
 
-        //post_title = (TextView)findViewById(R.id.editTextTitle);
-        //post_content = (TextView)findViewById(R.id.editText);
+        //업로드 버튼(체크)
+        upload_btn=(Button)findViewById(R.id.upload_btn);
+        upload_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                et_title=(EditText)findViewById(R.id.editTextTitle);
+                et_content=(EditText)findViewById(R.id.editTextContent);
+                title = et_title.getText().toString();//제목
+                content = et_content.getText().toString();//내용
+
+                final String uid=mAuth.getCurrentUser().getUid();
+                alert();
+
+            }
+        });
 
     }
 
@@ -126,7 +140,7 @@ public class Post_Activity extends AppCompatActivity {
                 path = getPath(uri);//경로 찾기
 
                 //firebase 업로드
-                Uri file = Uri.fromFile(new File(path));
+                Uri file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
                 //storage에 절대경로 파일 저장
                 StorageReference mStorageRef = storageRef.child(getUserEmail+"/"+file.getLastPathSegment());
                 uploadTask = mStorageRef.putFile(file);
@@ -168,15 +182,8 @@ public class Post_Activity extends AppCompatActivity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
-    //체크 버튼
-    public void done_clicked(View v) {
-        et_title=(EditText)findViewById(R.id.editTextTitle);
-        et_content=(EditText)findViewById(R.id.editTextContent);
-        title = et_title.getText().toString();
-        content = et_content.getText().toString();
-
-        final String uid=mAuth.getCurrentUser().getUid();
-
+    //게시물 작성 알림창
+    private void alert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("게시물 작성").setMessage("게시물을 작성하시겠습니까?");
         builder.setIcon(R.drawable.done);
@@ -189,10 +196,7 @@ public class Post_Activity extends AppCompatActivity {
         builder.setNegativeButton("취소", null).show();
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
-
-
     }
-
     private void load(){
         //SharedPreference 객체.get타입(저장된 이름, 기본 값)
         //저장된 이름이 존재하지 않을 시 기본 값

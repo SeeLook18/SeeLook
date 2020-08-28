@@ -178,7 +178,7 @@ public class Signin_Activity extends AppCompatActivity {
                     Log.d(TAG,"createUserWithEmail:success");
                     //FirebaseUser user = firebaseAuth.getCurrentUser();//현재 로그인한 사용자 가져오기
 
-                    final String uid=task.getResult().getUser().getUid();//현재 로그인한 사용자
+                    final String uid=task.getResult().getUser().getUid();//현재 로그인한 사용
                     UserModel userModel=new UserModel();
                     userModel.userName=name;
                     userModel.email=email;
