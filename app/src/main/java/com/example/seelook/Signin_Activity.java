@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.regex.Pattern;
 
@@ -29,6 +31,10 @@ public class Signin_Activity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
 
     private FirebaseAuth firebaseAuth;
+    //realtime database 위함
+    private FirebaseDatabase firebaseDatabase;
+    //private FirebaseStorage firebaseStorage;
+
     private EditText et_user_name, et_user_email, et_user_password,et_user_password_check,et_user_email_code;
     private TextView password_error, email_confirm_alarm, time_counter;
     private Button btn_register,btn_email,btn_email_confirm,auth_Button;
@@ -50,6 +56,9 @@ public class Signin_Activity extends AppCompatActivity {
 
         //firebase 정의
         firebaseAuth=FirebaseAuth.getInstance();
+        //database위함
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        //firebaseStorage=FirebaseStorage.getInstance();
 
         //레이아웃이랑 연결
         et_user_name =(EditText) findViewById(R.id.name);
@@ -149,7 +158,7 @@ public class Signin_Activity extends AppCompatActivity {
         });
     }
     //회원가입
-    private void createUser(String email,String password,String name){
+    private void createUser(final String email, final String password, final String name){
         if(!isValidEmail(email)){//email 검사 isValidEmail=false 일 경우
             Log.e(TAG,"createAccount: email이 유효하지 않음");
             Toast.makeText(Signin_Activity.this,"Email이 유효하지 않습니다",Toast.LENGTH_SHORT).show();
@@ -167,7 +176,16 @@ public class Signin_Activity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d(TAG,"createUserWithEmail:success");
-                    FirebaseUser user = firebaseAuth.getCurrentUser();//현재 로그인한 사용자 가져오기
+                    //FirebaseUser user = firebaseAuth.getCurrentUser();//현재 로그인한 사용자 가져오기
+
+                    final String uid=task.getResult().getUser().getUid();//현재 로그인한 사용자
+                    UserModel userModel=new UserModel();
+                    userModel.userName=name;
+                    userModel.email=email;
+                    userModel.password=password;
+                    userModel.uid=uid;
+
+                    firebaseDatabase.getReference().child("users").child(uid).setValue(userModel);
                     Toast.makeText(Signin_Activity.this,"회원가입 성공",Toast.LENGTH_SHORT).show();
                     finish();
                 }
