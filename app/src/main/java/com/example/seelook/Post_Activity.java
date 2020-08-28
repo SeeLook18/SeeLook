@@ -139,30 +139,7 @@ public class Post_Activity extends AppCompatActivity {
                 Uri uri = intent.getData();
                 path = getPath(uri);//경로 찾기
 
-                //firebase 업로드
-                Uri file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
-                //storage에 절대경로 파일 저장
-                StorageReference mStorageRef = storageRef.child(getUserEmail+"/"+file.getLastPathSegment());
-                uploadTask = mStorageRef.putFile(file);
 
-                // Register observers to listen for when the download is done or if it fails
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        Toast.makeText(Post_Activity.this, "이미지 업로드 실패", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
-                        //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        PostModel postModel=new PostModel();
-                        postModel.myid=getUserEmail;
-                        Toast.makeText(Post_Activity.this, "이미지 업로드 성공", Toast.LENGTH_LONG).show();
-                    }
-                });
 
                 videoView.setVisibility(View.VISIBLE);
                 videoView.setVideoURI(uri);
@@ -190,18 +167,51 @@ public class Post_Activity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                uploadFirebase();
                 Toast.makeText(getApplicationContext(), "게시물 작성 완료", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        Home_Activity1.class);
+                startActivity(intent);
             }
         });
         builder.setNegativeButton("취소", null).show();
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
     }
+
+
     private void load(){
         //SharedPreference 객체.get타입(저장된 이름, 기본 값)
         //저장된 이름이 존재하지 않을 시 기본 값
         getUserEmail=appData.getString("email","");
         getUserPassword=appData.getString("pw","");
+    }
+
+    private void uploadFirebase() {
+        //firebase 업로드
+        Uri file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
+        //storage에 절대경로 파일 저장
+        StorageReference mStorageRef = storageRef.child(getUserEmail + "/" + file.getLastPathSegment());
+        uploadTask = mStorageRef.putFile(file);
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Toast.makeText(Post_Activity.this, "영상 업로드 실패", Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                PostModel postModel=new PostModel();
+                postModel.myid=getUserEmail;
+                Toast.makeText(Post_Activity.this, "영상 업로드 성공", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
 
