@@ -121,14 +121,14 @@ public class Login_Activity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d(TAG,"signInwithEmail:success");
-                    Toast.makeText(Login_Activity.this,"로그인 성공",Toast.LENGTH_SHORT).show();
                     save();//자동 로그인 정보 저장
-                    //성공 시 홈 화면으로 이동
-                    firebaseAuth.addAuthStateListener(firebaseAuthListener);
+                    Toast.makeText(Login_Activity.this,"로그인 성공",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(
                             getApplicationContext(),
                             Home_Activity1.class);
                     startActivity(intent);
+                    //성공 시 홈 화면으로 이동
+                    firebaseAuth.addAuthStateListener(firebaseAuthListener);
                 }
                 else{
                     Log.w(TAG,"signInwithEmail:fail",task.getException());

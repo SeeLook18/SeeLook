@@ -169,7 +169,7 @@ public class Post_Activity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                uploadFirebase();
+                uploadFirebase();//업로드
                 Toast.makeText(getApplicationContext(), "게시물 작성 완료", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(
                         getApplicationContext(),
@@ -213,6 +213,7 @@ public class Post_Activity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //이미지 url
                 final Task<Uri> imageUrl= uploadTask.getResult().getStorage().getDownloadUrl();
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                 //Uri downloadUrl = taskSnapshot.getDownloadUrl();
@@ -224,9 +225,10 @@ public class Post_Activity extends AppCompatActivity {
                                 Log.d(TAG,"userName: "+userModel.userName);
 
                                 PostModel postModel=new PostModel();
-                                postModel.myid=getUserEmail;//업로드한 유저 정보 (게시물 정보)
+                                postModel.email=getUserEmail;//업로드한 유저의 email 정보
+                                postModel.myuid=uid;//업로드한 유저 정보 (게시물 정보)
                                 postModel.photo=imageUrl.getResult().toString();
-                                postModel.photoName=file.getLastPathSegment();
+                                postModel.photoName=file.getLastPathSegment();//이걸로 접근하나??
                                 postModel.title=title;
                                 postModel.contents=content;
                                 postModel.username=userModel.userName;
@@ -239,14 +241,12 @@ public class Post_Activity extends AppCompatActivity {
                                     }
                                 });
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
 
                             }
                         });
-                Toast.makeText(Post_Activity.this, "영상 업로드 성공", Toast.LENGTH_LONG).show();
-            }
+                }
         });
     }
 }

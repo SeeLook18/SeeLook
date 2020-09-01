@@ -176,7 +176,8 @@ public class Signin_Activity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d(TAG,"createUserWithEmail:success");
-                    //FirebaseUser user = firebaseAuth.getCurrentUser();//현재 로그인한 사용자 가져오기
+                    Toast.makeText(Signin_Activity.this,"회원가입 성공",Toast.LENGTH_SHORT).show();
+                    finish();
 
                     final String uid=task.getResult().getUser().getUid();//현재 로그인한 사용
                     UserModel userModel=new UserModel();
@@ -186,8 +187,6 @@ public class Signin_Activity extends AppCompatActivity {
                     userModel.uid=uid;
 
                     firebaseDatabase.getReference().child("users").child(uid).setValue(userModel);
-                    Toast.makeText(Signin_Activity.this,"회원가입 성공",Toast.LENGTH_SHORT).show();
-                    finish();
                 }
                 else{//계정이 중복된 경우
                     Log.w(TAG,"createUserWithEmail:fail",task.getException());
