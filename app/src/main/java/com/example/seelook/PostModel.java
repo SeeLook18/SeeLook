@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class PostModel {
     public String myuid; // 로그인한 uid
-    public String photo; // 게시글 사진
-    public String photoName; // 게시글사진 이름(사진삭제할때 필요, 절대경로를 뜻함)
+    public String video; // 게시글 사진
+    public String videoName; // 게시글사진 이름(사진삭제할때 필요, 절대경로를 뜻함)
     public String contents; // 게시글 내용
     public String username; // 회원가입시 닉네임
     public String title;

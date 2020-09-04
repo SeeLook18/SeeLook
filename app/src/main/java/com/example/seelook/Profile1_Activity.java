@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +30,8 @@ import com.google.firebase.storage.StorageReference;
 public class Profile1_Activity extends AppCompatActivity {
 
     private static final String TAG="Profile_Activity";
+
+    private FirebaseDatabase firebaseDatabase;
 
     private String getUserEmail;
     private String getUserPassword;
@@ -49,9 +53,8 @@ public class Profile1_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_profile1_);
 
         videoView1 = (VideoView)findViewById(R.id.videoView1);
-        videoView1.setVisibility(View.INVISIBLE);//안보이게?
-        MediaController mc = new MediaController(this);
-        videoView1.setMediaController(mc); // Video View 에 사용할 컨트롤러 지정
+        //MediaController mc = new MediaController(this);
+        //videoView1.setMediaController(mc); // Video View 에 사용할 컨트롤러 지정
 
         appData = getSharedPreferences("appData",MODE_PRIVATE);
         load();//자동 로그인 정보 로드
@@ -85,29 +88,21 @@ public class Profile1_Activity extends AppCompatActivity {
         });
     }
 
-    //Post에서 user property로 영상 이름을 넣어놓는 배열을 만들어서 가져오면??
-    public void getStorage(){
-        //이렇게 많은 참조가!!!!! 원하는 거 쓰는거임
-        pathReference=storageRef.child(getUserEmail+"/[예.비.용#10] 예리,나은,도연😍 예쁜 애들은 쉬는 시간에 뭐 하고 놀아.mp4");
-        gsReference=storage.getReferenceFromUrl("gs://seelook-d3a93.appspot.com/sung980524@naver.com/[예.비.용#10] 예리,나은,도연\uD83D\uDE0D 예쁜 애들은 쉬는 시간에 뭐 하고 놀아.mp4");
-        httpsReference=storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/seelook-d3a93.appspot.com/o/sung980524%40naver.com%2F%5B%EC%98%88.%EB%B9%84.%EC%9A%A9%2310%5D%20%EC%98%88%EB%A6%AC%2C%EB%82%98%EC%9D%80%2C%EB%8F%84%EC%97%B0%F0%9F%98%8D%20%EC%98%88%EC%81%9C%20%EC%95%A0%EB%93%A4%EC%9D%80%20%EC%89%AC%EB%8A%94%20%EC%8B%9C%EA%B0%84%EC%97%90%20%EB%AD%90%20%ED%95%98%EA%B3%A0%20%EB%86%80%EC%95%84.mp4?alt=media&token=7257dbd5-9506-4a2f-aef4-cbfa643058c6");
+   public void getStorage(){
+        FirebaseStorage storage = FirebaseStorage.getInstance("gs://seelook-d3a93.appspot.com/"+getUserEmail);
+        StorageReference storageRef = storage.getReference();
 
-        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.d(TAG,"성공인가염");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"실패인가염");
-            }
-        });
+        Uri uri;
+        //PostModel을 이용해서 uri주소 가져와야하는데... 존나어렵네
+        //아님 애초에 영상 업로드를 사용자 이메일에 따라 List 생성해서 리스트-여러사용자-사용자가 올린 영상정보 <이런식으로 리스트 생성해서 갖다 써여할듯? 뷁
+       //Glide 라이브러리 엄청 편한데 이미지 라이브러리라넴~ 이거 쓸꺼면 썸네일 이미지 따로 만들어야댐..
+        //videoView1.setVideoURI(uri);
     }
-    private void load(){
-        //SharedPreference 객체.get타입(저장된 이름, 기본 값)
-        //저장된 이름이 존재하지 않을 시 기본 값
-        getUserEmail=appData.getString("email","");
-        getUserPassword=appData.getString("pw","");
-    }
+
+   public void load(){
+       //SharedPreference 객체.get타입(저장된 이름, 기본 값)
+       //저장된 이름이 존재하지 않을 시 기본 값
+       getUserEmail=appData.getString("email","");
+       getUserPassword=appData.getString("pw","");
+   }
 }

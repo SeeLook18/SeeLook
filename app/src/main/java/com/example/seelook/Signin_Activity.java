@@ -36,7 +36,7 @@ public class Signin_Activity extends AppCompatActivity {
     //private FirebaseStorage firebaseStorage;
 
     private EditText et_user_name, et_user_email, et_user_password,et_user_password_check,et_user_email_code;
-    private TextView password_error, email_confirm_alarm, time_counter;
+    private TextView password_error, passwordcheck_error, email_confirm_alarm, time_counter;
     private Button btn_register,btn_email,btn_email_confirm,auth_Button;
     private String randomcode; //인증번호
     private Boolean email_confirm; //이메일인증여부
@@ -73,6 +73,9 @@ public class Signin_Activity extends AppCompatActivity {
 
         password_error=(TextView)findViewById(R.id.textView3);//비밀번호 조건 경고 멘트
         password_error.setVisibility(View.INVISIBLE);
+
+        passwordcheck_error=(TextView)findViewById(R.id.textView4); //비밀번호 불일치 멘트
+        passwordcheck_error.setVisibility(View.INVISIBLE);
 
         email_confirm_alarm=(TextView)findViewById(R.id.textView11);//이메일 인증 성공여부 멘트
         email_confirm_alarm.setVisibility(View.INVISIBLE);
@@ -130,11 +133,12 @@ public class Signin_Activity extends AppCompatActivity {
                     if(!getUserEmail.equals("")&&!getUserPassword.equals("")&&!getUserName.equals("")){
                         //동일한 비밀번호 체크
                         if(getUserPassword.equals(getUserPassword_check)){
-                            Log.d(TAG,"비밀 번호 동일/"+getUserName+"/"+getUserEmail+"/"+getUserPassword);
+                            passwordcheck_error.setVisibility(View.INVISIBLE);
+                            //Log.d(TAG,"비밀 번호 동일/"+getUserName+"/"+getUserEmail+"/"+getUserPassword);
                             createUser(getUserEmail,getUserPassword,getUserName);
                         }
                         else{
-                            Toast.makeText(Signin_Activity.this,"비밀번호가 일치하지않습니다. 다시 입력해 주세요",Toast.LENGTH_SHORT).show();
+                            passwordcheck_error.setVisibility(View.VISIBLE);
                             //return;
                         }
                     }
@@ -202,11 +206,12 @@ public class Signin_Activity extends AppCompatActivity {
         Boolean tt=Pattern.matches(pwPattern,target);
 
         if (tt==true){
+            password_error.setVisibility(View.INVISIBLE);
             Log.d(TAG,"비밀 번호 조건 만족");
             return true;
         }
         else{
-            password_error.setVisibility(View.VISIBLE); //왜 바탕색이 회색인게냐!!!!!!
+            password_error.setVisibility(View.VISIBLE);
             return false;
         }
     }

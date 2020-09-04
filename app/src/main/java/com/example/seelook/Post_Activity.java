@@ -75,7 +75,7 @@ public class Post_Activity extends AppCompatActivity {
         firebaseDatabase=FirebaseDatabase.getInstance();
 
         videoView = (VideoView)findViewById(R.id.videoView);
-        videoView.setVisibility(View.INVISIBLE);//안보이게?
+        videoView.setVisibility(View.INVISIBLE);//안보이게
 
         MediaController mc = new MediaController(this);
         videoView.setMediaController(mc); // Video View 에 사용할 컨트롤러 지정
@@ -217,36 +217,31 @@ public class Post_Activity extends AppCompatActivity {
                 final Task<Uri> imageUrl= uploadTask.getResult().getStorage().getDownloadUrl();
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                 //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                firebaseDatabase.getReference().child("users").child(uid)
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                UserModel userModel=dataSnapshot.getValue(UserModel.class);
-                                Log.d(TAG,"userName: "+userModel.userName);
 
-                                PostModel postModel=new PostModel();
-                                postModel.email=getUserEmail;//업로드한 유저의 email 정보
-                                postModel.myuid=uid;//업로드한 유저 정보 (게시물 정보)
-                                postModel.photo=imageUrl.getResult().toString();
-                                postModel.photoName=file.getLastPathSegment();//이걸로 접근하나??
-                                postModel.title=title;
-                                postModel.contents=content;
-                                postModel.username=userModel.userName;
+                firebaseDatabase.getReference().child("video_info").addValueEventListener(new ValueEventListener()  {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        UserModel userModel=dataSnapshot.getValue(UserModel.class);
+                        Log.d(TAG,"userName: "+userModel.userName);
 
-                                firebaseDatabase.getReference().child("contents").child("content").push()
-                                        .setValue(postModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        //
-                                    }
-                                });
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                        PostModel postModel=new PostModel();
+                        postModel.email=getUserEmail;//업로드한 유저의 email 정보
+                        postModel.myuid=uid;//업로드한 유저 정보 (게시물 정보)
+                        postModel.video=imageUrl.getResult().toString();
+                        postModel.videoName=file.getLastPathSegment();//이걸로 접근하나?? -> 혼잣말쫌 그만하시길,,,
+                        postModel.title=title;
+                        postModel.contents=content;
+                        postModel.username=userModel.userName;
 
-                            }
-                        });
-                }
+                        firebaseDatabase.getReference().child("contents").child("video.info").setValue(postModel);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
         });
     }
 }
