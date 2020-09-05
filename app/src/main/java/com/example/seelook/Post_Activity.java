@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,12 +35,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Post_Activity extends AppCompatActivity {
 
     private static final String TAG="Post_Activity";
 
     private final int SELECT_MOVIE = 2;
+    private final int FROM_CAMERA = 101;
     private VideoView videoView;
     private Button add_btn; //영상 가져오기
     private Button thumbnail_btn;//썸네일 버튼
@@ -59,6 +63,9 @@ public class Post_Activity extends AppCompatActivity {
     private String getUserPassword;
     private SharedPreferences appData;
 
+    private Uri imgUri;
+    private String mCurrentPhotoPath;
+
     private String path;//절대 경로
     private EditText et_title;
     private EditText et_content;
@@ -75,16 +82,16 @@ public class Post_Activity extends AppCompatActivity {
 
         appData = getSharedPreferences("appData",MODE_PRIVATE);
         load();//자동 로그인 정보 로드
+
         mAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
+        storageRef = FirebaseStorage.getInstance().getReference();
 
         videoView = (VideoView)findViewById(R.id.videoView);
-        videoView.setVisibility(View.INVISIBLE);//안보이게?
+        videoView.setVisibility(View.INVISIBLE);//안보이게
 
         MediaController mc = new MediaController(this);
         videoView.setMediaController(mc); // Video View 에 사용할 컨트롤러 지정
-
-        storageRef = FirebaseStorage.getInstance().getReference();
 
         home_btn = (Button)findViewById(R.id.home_btn);
         home_btn.setOnClickListener(new View.OnClickListener() {
@@ -108,23 +115,13 @@ public class Post_Activity extends AppCompatActivity {
             }
         });
 
-        //영상 불러오기
+        //영상 불러오기-> 선택
         add_btn = (Button)findViewById(R.id.add_button);
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.setType("video/*");
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                try {
-                    startActivityForResult(i,SELECT_MOVIE);
-
-                } catch (android.content.ActivityNotFoundException e) {
-                    e.printStackTrace();
-                }
+                makeDialog();
             }
-
         });
 
         //썸네일 이미지 선택
@@ -145,13 +142,17 @@ public class Post_Activity extends AppCompatActivity {
                 {
                     alert();//알림창이랑 업로드
                 }
-                if(check_thumb==false)
+                if(check_thumb==false&&check_video==true)
                 {
                     Toast.makeText(Post_Activity.this,"썸네일을 설정 해 주세요",Toast.LENGTH_SHORT).show();
                 }
-                if(check_video==false)
+                if(check_video==false&&check_thumb==true)
                 {
                     Toast.makeText(Post_Activity.this,"업로드할 영상을 선택 해 주세요",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(Post_Activity.this,"영상과 썸네일을 선택해주세요",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -162,8 +163,11 @@ public class Post_Activity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        if (resultCode == RESULT_OK) {
-            if (requestCode == SELECT_MOVIE) {
+        if(resultCode!=RESULT_OK){
+            return;
+        }
+        switch (requestCode){
+            case SELECT_MOVIE:{
                 Uri uri = intent.getData();
                 path = getPath(uri);//경로 찾기
 
@@ -176,6 +180,9 @@ public class Post_Activity extends AppCompatActivity {
 
                 check_video=true;
             }
+            case FROM_CAMERA:{
+
+            }
         }
     }
 
@@ -187,6 +194,7 @@ public class Post_Activity extends AppCompatActivity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+
     //게시물 작성 알림창
     private void alert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -208,11 +216,53 @@ public class Post_Activity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void load(){
-        //SharedPreference 객체.get타입(저장된 이름, 기본 값)
-        //저장된 이름이 존재하지 않을 시 기본 값
-        getUserEmail=appData.getString("email","");
-        getUserPassword=appData.getString("pw","");
+    //선택 창
+    private void makeDialog(){
+        AlertDialog.Builder alt_bld=new AlertDialog.Builder(this);
+        alt_bld.setTitle("영상 업로드");
+        alt_bld.setIcon(R.drawable.add_push).setCancelable(false).setPositiveButton("사진 촬영",
+        new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.v("알림","다이얼로그> 사진촬영 선택");
+                takePhoto();
+            }
+        }).setNeutralButton("영상 선택",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.v("알림","다이얼로그> 앨범선택 선택");
+                        //앨범에서 선택
+                        selectVideo();
+                    }
+                }).setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.v("알림","다이얼로그> 취소 선택");
+                        dialogInterface.cancel();
+                    }
+                });
+            AlertDialog alert=alt_bld.create();
+            alert.show();
+    }
+
+    //사진 찍기 선택
+    public void takePhoto() {
+
+    }
+    //영상 선택
+    public void selectVideo() {
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.setType("video/*");
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        try {
+            startActivityForResult(i,SELECT_MOVIE);
+
+        } catch (android.content.ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     //firebase 업로드
@@ -270,6 +320,12 @@ public class Post_Activity extends AppCompatActivity {
                 });
             }
         });
+    }
+    private void load(){
+        //SharedPreference 객체.get타입(저장된 이름, 기본 값)
+        //저장된 이름이 존재하지 않을 시 기본 값
+        getUserEmail=appData.getString("email","");
+        getUserPassword=appData.getString("pw","");
     }
 }
 
