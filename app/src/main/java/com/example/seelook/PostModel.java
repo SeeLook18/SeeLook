@@ -12,6 +12,8 @@ public class PostModel {
     public String title;
     public String email;
 
+    public String thumbnail;//썸네일
+
     public int starCount = 0; // 좋아요 갯수
     public Map<String, Boolean> stars = new HashMap<>(); // 좋아요 한 사람
     // String 값은 아이디를 뜻하고, boolean 은 true

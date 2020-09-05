@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
-
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,6 +94,7 @@ public class Profile1_Activity extends AppCompatActivity {
         //PostModel을 이용해서 uri주소 가져와야하는데... 존나어렵네
         //아님 애초에 영상 업로드를 사용자 이메일에 따라 List 생성해서 리스트-여러사용자-사용자가 올린 영상정보 <이런식으로 리스트 생성해서 갖다 써여할듯? 뷁
        //Glide 라이브러리 엄청 편한데 이미지 라이브러리라넴~ 이거 쓸꺼면 썸네일 이미지 따로 만들어야댐..
+       //->썸네일 이미지를 사용자가 업로드하게 설정 : 유튜브 처럼!!
         //videoView1.setVideoURI(uri);
     }
 

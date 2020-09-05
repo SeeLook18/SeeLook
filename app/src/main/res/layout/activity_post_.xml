@@ -32,7 +32,7 @@
         android:layout_marginLeft="56dp"
         android:layout_marginTop="16dp"
         android:background="#FFFFFF"
-        android:hint="  제목을 입력하세요"
+        android:hint="근데 우리 제목 필요한가??"
         android:textColor="#000000"
         android:textColorHint="#837D7D"
         android:textSize="10dp"
@@ -123,7 +123,9 @@
         android:id="@+id/editTextContent"
         android:layout_width="300dp"
         android:layout_height="100dp"
+        android:layout_marginTop="16dp"
         android:background="#FFFFFF"
+        android:gravity="top"
         android:hint="  설명을 입력하세요"
         android:textColor="#000000"
         android:textColorHint="#837D7D"
@@ -134,5 +136,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="0.074"></EditText>
+
+    <Button
+        android:id="@+id/thumbnail_btn"
+        android:layout_width="55dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="212dp"
+        android:background="@drawable/sex_button"
+        android:text="썸네일 설정"
+        android:textColor="@color/sex_text"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

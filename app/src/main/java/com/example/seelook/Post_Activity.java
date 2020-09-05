@@ -41,6 +41,7 @@ public class Post_Activity extends AppCompatActivity {
     private final int SELECT_MOVIE = 2;
     private VideoView videoView;
     private Button add_btn; //영상 가져오기
+    private Button thumbnail_btn;//썸네일 버튼
 
     //database위함
     private FirebaseDatabase firebaseDatabase;
@@ -64,6 +65,9 @@ public class Post_Activity extends AppCompatActivity {
     private String title;//제목
     private String content;//내용
 
+    private Boolean check_thumb =false;//썸네일 선택했는지 체크
+    private Boolean check_video = false;//영상 선택 했는지 체크
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +79,7 @@ public class Post_Activity extends AppCompatActivity {
         firebaseDatabase=FirebaseDatabase.getInstance();
 
         videoView = (VideoView)findViewById(R.id.videoView);
-        videoView.setVisibility(View.INVISIBLE);//안보이게
+        videoView.setVisibility(View.INVISIBLE);//안보이게?
 
         MediaController mc = new MediaController(this);
         videoView.setMediaController(mc); // Video View 에 사용할 컨트롤러 지정
@@ -123,12 +127,32 @@ public class Post_Activity extends AppCompatActivity {
 
         });
 
+        //썸네일 이미지 선택
+        thumbnail_btn=(Button)findViewById(R.id.thumbnail_btn);
+        thumbnail_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         //업로드 버튼(체크)
         upload_btn=(Button)findViewById(R.id.upload_btn);
         upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alert();//알림창이랑 업로드
+                if(check_thumb==true && check_video==true)
+                {
+                    alert();//알림창이랑 업로드
+                }
+                if(check_thumb==false)
+                {
+                    Toast.makeText(Post_Activity.this,"썸네일을 설정 해 주세요",Toast.LENGTH_SHORT).show();
+                }
+                if(check_video==false)
+                {
+                    Toast.makeText(Post_Activity.this,"업로드할 영상을 선택 해 주세요",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -149,6 +173,8 @@ public class Post_Activity extends AppCompatActivity {
 
                 videoView.requestFocus(); // 포커스 얻어오기
                 videoView.start();
+
+                check_video=true;
             }
         }
     }
@@ -169,7 +195,7 @@ public class Post_Activity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                uploadFirebase();//업로드
+                uploadFirebase();//업로드!!!!!
                 Toast.makeText(getApplicationContext(), "게시물 작성 완료", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(
                         getApplicationContext(),
@@ -233,6 +259,8 @@ public class Post_Activity extends AppCompatActivity {
                         postModel.contents=content;
                         postModel.username=userModel.userName;
 
+                        //postModel.thumbnail=~~~;
+
                         firebaseDatabase.getReference().child("contents").child("video.info").setValue(postModel);
                     }
                     @Override
@@ -240,7 +268,6 @@ public class Post_Activity extends AppCompatActivity {
 
                     }
                 });
-
             }
         });
     }
