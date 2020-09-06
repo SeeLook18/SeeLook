@@ -41,6 +41,7 @@ public class Post_Activity extends AppCompatActivity {
 
     private static final String TAG="Post_Activity";
 
+    private final int SELECT_PHOTO = 1;
     private final int SELECT_MOVIE = 2;
     private final int FROM_CAMERA = 101;
     private VideoView videoView;
@@ -67,6 +68,7 @@ public class Post_Activity extends AppCompatActivity {
     private String mCurrentPhotoPath;
 
     private String path;//절대 경로
+    private String path_t; //썸네일 경로
     private EditText et_title;
     private EditText et_content;
     private String title;//제목
@@ -74,6 +76,7 @@ public class Post_Activity extends AppCompatActivity {
 
     private Boolean check_thumb =false;//썸네일 선택했는지 체크
     private Boolean check_video = false;//영상 선택 했는지 체크
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +132,7 @@ public class Post_Activity extends AppCompatActivity {
         thumbnail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                selectPhoto();
             }
         });
 
@@ -171,6 +174,8 @@ public class Post_Activity extends AppCompatActivity {
                 Uri uri = intent.getData();
                 path = getPath(uri);//경로 찾기
 
+                Toast.makeText(Post_Activity.this,"영상 선택 성공",Toast.LENGTH_SHORT).show();
+
                 videoView.setVisibility(View.VISIBLE);
                 videoView.setVideoURI(uri);
                 add_btn.setVisibility(View.INVISIBLE);
@@ -179,6 +184,14 @@ public class Post_Activity extends AppCompatActivity {
                 videoView.start();
 
                 check_video=true;
+            }
+            case SELECT_PHOTO:{
+                Uri uri = intent.getData();
+                path_t = getPath(uri);//경로 찾기
+                Toast.makeText(Post_Activity.this,"썸네일 선택 성공",Toast.LENGTH_SHORT).show();
+
+                check_thumb = true;
+
             }
             case FROM_CAMERA:{
 
@@ -204,6 +217,7 @@ public class Post_Activity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 uploadFirebase();//업로드!!!!!
+                //loadFirebase_t();//썸네일 업로드
                 Toast.makeText(getApplicationContext(), "게시물 작성 완료", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(
                         getApplicationContext(),
@@ -265,6 +279,21 @@ public class Post_Activity extends AppCompatActivity {
         }
     }
 
+    //썸네일 고르기
+    public void selectPhoto() {
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.setType("image/*");
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        try {
+            startActivityForResult(i,SELECT_PHOTO);
+
+        } catch (android.content.ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     //firebase 업로드
     private void uploadFirebase() {
         et_title=(EditText)findViewById(R.id.editTextTitle);
@@ -312,6 +341,63 @@ public class Post_Activity extends AppCompatActivity {
                         //postModel.thumbnail=~~~;
 
                         firebaseDatabase.getReference().child("contents").child("video.info").setValue(postModel);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    //firebase 썸네일 업로드
+    private void uploadFirebase_t() {
+        et_title=(EditText)findViewById(R.id.editTextTitle);
+        et_content=(EditText)findViewById(R.id.editTextContent);
+        title = et_title.getText().toString();//제목
+        content = et_content.getText().toString();//내용
+
+        final String uid=mAuth.getCurrentUser().getUid();
+        final Uri file = Uri.fromFile(new File(path_t));//절대 경로 uri를 file에 할당
+        Log.d(TAG,"photo file: "+file);
+
+        //storage에 절대경로 파일 저장
+        StorageReference mStorageRef = storageRef.child(getUserEmail + "/" + file.getLastPathSegment());
+        uploadTask = mStorageRef.putFile(file);
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Toast.makeText(Post_Activity.this, "썸네일 업로드 실패", Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //이미지 url
+                final Task<Uri> imageUrl= uploadTask.getResult().getStorage().getDownloadUrl();
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                firebaseDatabase.getReference().child("thumnail_info").addValueEventListener(new ValueEventListener()  {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        UserModel userModel=dataSnapshot.getValue(UserModel.class);
+                        Log.d(TAG,"userName: "+userModel.userName);
+
+                        PostModel postModel=new PostModel();
+                        postModel.email=getUserEmail;//업로드한 유저의 email 정보
+                        postModel.myuid=uid;//업로드한 유저 정보 (게시물 정보)
+                        postModel.video=imageUrl.getResult().toString();
+                        postModel.videoName=file.getLastPathSegment();//이걸로 접근하나?? -> 혼잣말쫌 그만하시길,,,
+                        postModel.title=title;
+                        postModel.contents=content;
+                        postModel.username=userModel.userName;
+
+                        //postModel.thumbnail=~~~;
+
+                        firebaseDatabase.getReference().child("contents").child("thumnail.info").setValue(postModel);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
