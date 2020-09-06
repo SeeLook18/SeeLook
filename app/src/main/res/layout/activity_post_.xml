@@ -24,21 +24,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.055" />
 
-    <EditText
-        android:id="@+id/editTextTitle"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="16dp"
-        android:background="#FFFFFF"
-        android:hint="근데 우리 제목 필요한가??"
-        android:textColor="#000000"
-        android:textColorHint="#837D7D"
-        android:textSize="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="387dp"
@@ -105,8 +90,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/add_button"
@@ -121,8 +108,8 @@
 
     <EditText
         android:id="@+id/editTextContent"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_width="149dp"
+        android:layout_height="140dp"
         android:layout_marginTop="16dp"
         android:background="#FFFFFF"
         android:gravity="top"
@@ -132,23 +119,64 @@
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.782"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.074"></EditText>
+        app:layout_constraintVertical_bias="0.087"></EditText>
 
     <Button
         android:id="@+id/thumbnail_btn"
-        android:layout_width="55dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="212dp"
-        android:background="@drawable/sex_button"
-        android:text="썸네일 설정"
-        android:textColor="@color/sex_text"
-        android:textSize="8sp"
+        android:layout_width="36dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="272dp"
+        android:background="@drawable/add_button"
+        android:textColor="#000000"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintHorizontal_bias="0.277"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.007" />
+
+    <ImageView
+        android:id="@+id/thumbnail_view"
+        android:layout_width="135dp"
+        android:layout_height="96dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.744"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="썸네일 업로드"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.556" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영상 업로드"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.225" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
