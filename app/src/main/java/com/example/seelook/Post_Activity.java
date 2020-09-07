@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
@@ -49,6 +52,8 @@ public class Post_Activity extends AppCompatActivity {
     private final int SELECT_MOVIE = 2;
     private final int FROM_CAMERA = 101;
 
+    private ConstraintLayout videoView_layout;
+    private ConstraintLayout thumnailView_layout;
     private VideoView videoView;
     private ImageView thumbnailView;
     private Button add_btn; //영상 가져오기
@@ -97,9 +102,11 @@ public class Post_Activity extends AppCompatActivity {
         myRef=firebaseDatabase.getReference();
         //storageRef = FirebaseStorage.getInstance().getReference();
 
+        videoView_layout=findViewById(R.id.videoview_layout);
         videoView = (VideoView)findViewById(R.id.videoView);
         videoView.setVisibility(View.INVISIBLE);//안보이게
 
+        thumnailView_layout=findViewById(R.id.thumbnailview_layout);
         thumbnailView = (ImageView)findViewById(R.id.thumbnail_view);
         thumbnailView.setVisibility(View.INVISIBLE);//안보이게
 
@@ -192,7 +199,9 @@ public class Post_Activity extends AppCompatActivity {
             videoView.requestFocus(); // 포커스 얻어오기
             videoView.start();
 
+            videoView_layout.setBackgroundColor(Color.WHITE);
             check_video=true;
+
         }
         else if (requestCode == FROM_CAMERA){//영상 업로드-카메라 촬영
 
@@ -209,6 +218,7 @@ public class Post_Activity extends AppCompatActivity {
             thumbnailView.setVisibility(View.VISIBLE);
             thumbnail_btn.setVisibility(View.INVISIBLE);
 
+            thumnailView_layout.setBackgroundColor(Color.WHITE);
             check_thumb = true;
         }
     }
