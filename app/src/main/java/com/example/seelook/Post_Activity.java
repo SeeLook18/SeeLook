@@ -53,6 +53,7 @@ public class Post_Activity extends AppCompatActivity {
     private final int FROM_CAMERA = 101;
 
     private ConstraintLayout videoView_layout;
+    private ConstraintLayout thumbnailview_layout;
     private VideoView videoView;
     private ImageView thumbnailView;
     private Button add_btn; //영상 가져오기
@@ -105,6 +106,7 @@ public class Post_Activity extends AppCompatActivity {
         videoView = (VideoView)findViewById(R.id.videoView);
         videoView.setVisibility(View.INVISIBLE);//안보이게
 
+        thumbnailview_layout=findViewById(R.id.thumbnailview_layout);
         thumbnailView = (ImageView)findViewById(R.id.thumbnail_view);
         thumbnailView.setVisibility(View.INVISIBLE);//안보이게
 
@@ -213,6 +215,7 @@ public class Post_Activity extends AppCompatActivity {
                     .load(path_t)
                     .into(thumbnailView);
 
+            thumbnailview_layout.setBackgroundColor(Color.WHITE);
             thumbnailView.setVisibility(View.VISIBLE);
             thumbnail_btn.setVisibility(View.INVISIBLE);
 
