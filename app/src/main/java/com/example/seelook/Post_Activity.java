@@ -25,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
+import androidx.loader.content.CursorLoader;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -63,7 +64,8 @@ public class Post_Activity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference myRef;
     private FirebaseAuth mAuth;
-    //private StorageReference storageRef;
+
+    private StorageReference storageRef;
     private UploadTask uploadTask;
 
     //하단 바 메뉴
@@ -76,14 +78,16 @@ public class Post_Activity extends AppCompatActivity {
     private String getUserPassword;
     private SharedPreferences appData;
 
-    private Uri imgUri;
-    private String mCurrentPhotoPath;
+    private Task<Uri> imageUrl;
+    private String videoUrl;
+    private String thumbUrl;
 
     private String path;//절대 경로
     private String path_t; //썸네일 경로
     private EditText et_content;
     private String content;//내용
     private String time;//업로드 시간
+    private String user_email_id;
 
     private Boolean check_thumb =false;//썸네일 선택했는지 체크
     private Boolean check_video = false;//영상 선택 했는지 체크
@@ -96,11 +100,14 @@ public class Post_Activity extends AppCompatActivity {
 
         appData = getSharedPreferences("appData",MODE_PRIVATE);
         load();//자동 로그인 정보 로드
+        //사용자 이메일에서 @앞만따와서 폴더 지정하기 위해...(함수따로 만들긴 귀찮)
+        int index= getUserEmail.indexOf("@");
+        user_email_id = getUserEmail.substring(0,index);
 
         mAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
         myRef=firebaseDatabase.getReference();
-        //storageRef = FirebaseStorage.getInstance().getReference();
+        storageRef = FirebaseStorage.getInstance().getReference();//storage reference 얻어오기
 
         videoView_layout=findViewById(R.id.videoview_layout);
         videoView = (VideoView)findViewById(R.id.videoView);
@@ -226,7 +233,9 @@ public class Post_Activity extends AppCompatActivity {
     // 실제 경로 찾기: uri 절대 경로 가져오기
     private String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        CursorLoader cursorLoader = new CursorLoader(this,uri, projection, null, null, null);
+
+        Cursor cursor= cursorLoader.loadInBackground();
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
@@ -324,41 +333,26 @@ public class Post_Activity extends AppCompatActivity {
         et_content=(EditText)findViewById(R.id.editTextContent);
         content = et_content.getText().toString();//내용
 
-
-        /*//방법1 - 절대경로
+        //방법1 - 절대경로
         final Uri video_file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
-        video_file.getLastPathSegment();
         final Uri thumb_file = Uri.fromFile(new File(path_t));//절대 경로 uri를 file에 할당
-        thumb_file.getLastPathSegment();
+
+        uploadStorage_video();
+        uploadStorage_thumb();
 
         PostModel postModel = new PostModel(video_file.getLastPathSegment(), thumb_file.getLastPathSegment(), content, getUserEmail);
-        */
-
-        //방법2 - getPath 이용한 경로
-        PostModel postModel = new PostModel(path, path_t, content, getUserEmail); //생성자 이용한 초기화
-
-        //사용자 이메일에서 @앞만따와서 폴더 지정하기 위해...(함수따로 만들긴 귀찮)
-        int index= getUserEmail.indexOf("@");
-        String user_email_id = getUserEmail.substring(0,index);
-
         firebaseDatabase.getReference().child("video_info").child(user_email_id).child(time).setValue(postModel);
         //업로드할때마다 영상정보가 realtime~에 추가되어야 하므로
         //경로를 사용자이메일-업로드시간 으로 구분함.
-
     }
 
     //firebase 업로드
-    /*private void uploadFirebase() {
-        et_content=(EditText)findViewById(R.id.editTextContent);
-        content = et_content.getText().toString();//내용
-
-        final String uid=mAuth.getCurrentUser().getUid();
-        final Uri file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
-        Log.d(TAG,"photo file: "+file);
+    private void uploadStorage_video() {
+        final Uri video_file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
 
         //storage에 절대경로 파일 저장
-        StorageReference mStorageRef = storageRef.child(getUserEmail + "/" + file.getLastPathSegment());
-        uploadTask = mStorageRef.putFile(file);
+        StorageReference mStorageRef = storageRef.child(user_email_id+ "/" + video_file.getLastPathSegment());
+        uploadTask = mStorageRef.putFile(video_file);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -369,44 +363,34 @@ public class Post_Activity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //이미지 url
-                final Task<Uri> imageUrl= uploadTask.getResult().getStorage().getDownloadUrl();
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
-                firebaseDatabase.getReference().child("video_info").addValueEventListener(new ValueEventListener()  {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        UserModel userModel=dataSnapshot.getValue(UserModel.class);
-                        Log.d(TAG,"userName: "+userModel.userName);
-
-                        PostModel postModel=new PostModel();
-                        postModel.email=getUserEmail;//업로드한 유저의 email 정보
-                        postModel.myuid=uid;//업로드한 유저 정보 (게시물 정보)
-                        postModel.video=imageUrl.getResult().toString();
-                        postModel.videoName=file.getLastPathSegment();//이걸로 접근하나?? -> 혼잣말쫌 그만하시길,,,
-                        postModel.contents=content;
-                        postModel.username=userModel.userName;
-
-                        //postModel.thumbnail=~~~;
-
-                        firebaseDatabase.getReference().child("contents").child("video.info").setValue(postModel);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
             }
         });
     }
-     */
+
+    private void uploadStorage_thumb() {
+        final Uri thumb_file = Uri.fromFile(new File(path_t));//절대 경로 uri를 file에 할당
+
+        //storage에 절대경로 파일 저장
+        StorageReference mStorageRef = storageRef.child(user_email_id+ "/" + thumb_file.getLastPathSegment());
+        uploadTask = mStorageRef.putFile(thumb_file);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Toast.makeText(Post_Activity.this, "영상 업로드 실패", Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            }
+        });
+    }
 
     public void getTime(){
         SimpleDateFormat type = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
         time = type.format (System.currentTimeMillis());
     }
-
 
     private void load(){
         //SharedPreference 객체.get타입(저장된 이름, 기본 값)

@@ -1,5 +1,9 @@
 package com.example.seelook;
 
+import android.net.Uri;
+
+import com.google.android.gms.tasks.Task;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +17,8 @@ public class PostModel {
     //public String username; // 회원가입시 닉네임
     public String email;
     public String thumbnail_path;//썸네일
+    //public String videoUrl;
+    //public String thumbUrl;
 
     //public int starCount = 0; // 좋아요 갯수
     //public Map<String, Boolean> stars = new HashMap<>(); // 좋아요 한 사람
@@ -23,6 +29,8 @@ public class PostModel {
         this.thumbnail_path = thumbnail_path;
         this.contents = contents;
         this.email = email;
+        //this.videoUrl=videoUrl;
+        //this.thumbUrl=thumbUrl;
     }
 
 }
