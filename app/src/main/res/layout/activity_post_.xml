@@ -118,7 +118,6 @@
                         android:layout_height="96dp"
                         android:layout_marginStart="52dp"
                         android:layout_marginLeft="52dp"
-                        android:background="@color/light_grey"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
