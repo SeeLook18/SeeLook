@@ -351,7 +351,7 @@ public class Post_Activity extends AppCompatActivity {
         final Uri video_file = Uri.fromFile(new File(path));//절대 경로 uri를 file에 할당
 
         //storage에 절대경로 파일 저장
-        StorageReference mStorageRef = storageRef.child(user_email_id+ "/" + video_file.getLastPathSegment());
+        StorageReference mStorageRef = storageRef.child(user_email_id).child(time).child(video_file.getLastPathSegment());
         uploadTask = mStorageRef.putFile(video_file);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -371,7 +371,7 @@ public class Post_Activity extends AppCompatActivity {
         final Uri thumb_file = Uri.fromFile(new File(path_t));//절대 경로 uri를 file에 할당
 
         //storage에 절대경로 파일 저장
-        StorageReference mStorageRef = storageRef.child(user_email_id+ "/" + thumb_file.getLastPathSegment());
+        StorageReference mStorageRef = storageRef.child(user_email_id).child(time).child(thumb_file.getLastPathSegment());
         uploadTask = mStorageRef.putFile(thumb_file);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
