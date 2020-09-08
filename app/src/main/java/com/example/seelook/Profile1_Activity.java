@@ -31,10 +31,12 @@ import org.w3c.dom.Text;
 public class Profile1_Activity extends AppCompatActivity implements Button.OnClickListener{
 
     private static final String TAG="Profile_Activity";
+    private TextView nickname;
     private String getUserEmail;
     private String user_email_id;//realtimebase, Storage 에서 쓰기 위함
     private String user_nick_name;
     private SharedPreferences appData;
+    final private DatabaseReference userRef= FirebaseDatabase.getInstance().getReference().child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,38 +48,44 @@ public class Profile1_Activity extends AppCompatActivity implements Button.OnCli
 
         int index= getUserEmail.indexOf("@");
         user_email_id = getUserEmail.substring(0,index);
+        nickname = findViewById(R.id.nickname);
 
-        Button homeBt = (Button)findViewById(R.id.home_btn);//홈버튼
+        getUser(user_email_id);
+        getStorage(user_email_id);
+
+        //버튼
+        Button homeBt = (Button)findViewById(R.id.home_btn);
         homeBt.setOnClickListener(this);
-        Button uploadBt = (Button)findViewById(R.id.upload_btn);//업로드 버튼
+        Button uploadBt = (Button)findViewById(R.id.upload_btn);
         uploadBt.setOnClickListener(this);
-        Button profileBt = (Button)findViewById(R.id.profile_btn);//프로필 버튼
+        Button profileBt = (Button)findViewById(R.id.profile_btn);
         profileBt.setOnClickListener(this);
+    }
 
-        //데이터베이스 이용
-        DatabaseReference myRef= FirebaseDatabase.getInstance().getReference().child("users");
-        myRef.addValueEventListener(new ValueEventListener() {
-            TextView ninckname = (TextView)findViewById(R.id.nickname);
-
+    //데이터베이스에서 users 가져와서 닉네임 설정
+    public void getUser(String user_email){
+        userRef.child(user_email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel user = dataSnapshot.child(user_email_id).getValue(UserModel.class);//클래스 통째로 가져오는거
+                UserModel user= dataSnapshot.getValue(UserModel.class);
                 user_nick_name=user.userName;
-                ninckname.setText(user_nick_name);
+                nickname.setText(user_nick_name);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e(TAG,"ERROR");
-                ninckname.setText("ERROR");
+                nickname.setText("ERROR");
             }
         });
-        //스토리지는 어떻게 가져올까. 일단 데이터베이스에서 썸네일, 영상 경로 얻어오고 -> 스토리지에서 가져오기??
+    }
+
+    public void getStorage(String user_email){
+        //스토리지는 어떻게 가져올까.... 일단 데이터베이스에서 썸네일, 영상 경로 얻어오고 -> 스토리지에서 가져오기??
         // 데이터베이스에 시간순으로 여러개 있는데 이건 어떻게 하지?
         DatabaseReference videoRef=FirebaseDatabase.getInstance().getReference().child("video_info");
         videoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //PostModel post=dataSnapshot.child(user_email_id).getValue(PostModel.class); 시간을 어떻게 처리할까
+                //PostModel post=dataSnapshot.child(user_email).getValue(PostModel.class); 시간을 어떻게 처리할까
                 //post 배열?
             }
 
