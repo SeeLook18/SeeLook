@@ -85,6 +85,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/nickname"
+        android:layout_width="97dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="192dp"
+        android:layout_marginLeft="192dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:textColor="#7A7265"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintStart_toEndOf="@+id/hot_page5"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="369dp"
@@ -192,4 +207,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

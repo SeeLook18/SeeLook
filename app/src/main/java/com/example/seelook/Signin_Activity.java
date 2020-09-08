@@ -183,14 +183,17 @@ public class Signin_Activity extends AppCompatActivity {
                     Toast.makeText(Signin_Activity.this,"회원가입 성공",Toast.LENGTH_SHORT).show();
                     finish();
 
-                    final String uid=task.getResult().getUser().getUid();//현재 로그인한 사용
+                    int index= email.indexOf("@");
+                    String user_email_id = email.substring(0,index);
+
+                    final String uid=task.getResult().getUser().getUid();//현재 로그인한 사용자
                     UserModel userModel=new UserModel();
                     userModel.userName=name;
                     userModel.email=email;
                     userModel.password=password;
                     userModel.uid=uid;
 
-                    firebaseDatabase.getReference().child("users").child(uid).setValue(userModel);
+                    firebaseDatabase.getReference().child("users").child(user_email_id).setValue(userModel);
                 }
                 else{//계정이 중복된 경우
                     Log.w(TAG,"createUserWithEmail:fail",task.getException());

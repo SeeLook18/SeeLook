@@ -45,7 +45,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
-public class Post_Activity extends AppCompatActivity {
+public class Post_Activity extends AppCompatActivity implements Button.OnClickListener{
 
     private static final String TAG="Post_Activity";
 
@@ -121,69 +121,22 @@ public class Post_Activity extends AppCompatActivity {
         videoView.setMediaController(mc); // Video View 에 사용할 컨트롤러 지정
 
         home_btn = (Button)findViewById(R.id.home_btn);
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(
-                        getApplicationContext(),
-                        Home_Activity1.class);
-                startActivity(intent);
-            }
-        });
+        home_btn.setOnClickListener(this);
 
         profile_btn = (Button)findViewById(R.id.profile_btn);
-        profile_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(
-                        getApplicationContext(),
-                        Profile1_Activity.class);
-                startActivity(intent);
-            }
-        });
+        profile_btn.setOnClickListener(this);
 
         //영상 불러오기-> 선택
         add_btn = (Button)findViewById(R.id.add_button);
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                makeDialog();
-            }
-        });
+        add_btn.setOnClickListener(this);
 
         //썸네일 이미지 선택
         thumbnail_btn=(Button)findViewById(R.id.thumbnail_btn);
-        thumbnail_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectPhoto();
-            }
-        });
+        thumbnail_btn.setOnClickListener(this);
 
         //업로드 버튼(체크)
         upload_btn=(Button)findViewById(R.id.upload_btn);
-        upload_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(check_thumb==true && check_video==true)
-                {
-                    alert();//알림창이랑 업로드
-                }
-                else if(check_thumb==false&&check_video==true)
-                {
-                    Toast.makeText(Post_Activity.this,"썸네일을 선택 해주세요",Toast.LENGTH_SHORT).show();
-                }
-                else if(check_video==false&&check_thumb==true)
-                {
-                    Toast.makeText(Post_Activity.this,"업로드할 영상을 선택 해주세요",Toast.LENGTH_SHORT).show();
-                }
-                else if(check_thumb==false&&check_video==false) //만약을 대비해서 else로 안한거임 ㅅㄱ
-                {
-                    Toast.makeText(Post_Activity.this,"영상과 썸네일을 선택해주세요",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
+        upload_btn.setOnClickListener(this);
     }
 
     @Override
@@ -397,6 +350,44 @@ public class Post_Activity extends AppCompatActivity {
         //저장된 이름이 존재하지 않을 시 기본 값
         getUserEmail=appData.getString("email","");
         getUserPassword=appData.getString("pw","");
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.home_btn:
+                Intent intent1 = new Intent(getApplicationContext(),Home_Activity1.class);
+                startActivity(intent1);
+                break;
+            case R.id.profile_btn:
+                Intent intent3 = new Intent(getApplicationContext(),Profile1_Activity.class);
+                startActivity(intent3);
+                break;
+            case R.id.thumbnail_btn:
+                selectPhoto();
+                break;
+            case R.id.upload_btn:
+                if(check_thumb==true && check_video==true)
+                {
+                    alert();//알림창이랑 업로드
+                }
+                else if(check_thumb==false&&check_video==true)
+                {
+                    Toast.makeText(Post_Activity.this,"썸네일을 선택 해주세요",Toast.LENGTH_SHORT).show();
+                }
+                else if(check_video==false&&check_thumb==true)
+                {
+                    Toast.makeText(Post_Activity.this,"업로드할 영상을 선택 해주세요",Toast.LENGTH_SHORT).show();
+                }
+                else if(check_thumb==false&&check_video==false) //만약을 대비해서 else로 안한거임 ㅅㄱ
+                {
+                    Toast.makeText(Post_Activity.this,"영상과 썸네일을 선택해주세요",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.add_button:
+                makeDialog();
+                break;
+        }
     }
 }
 

@@ -11,14 +11,10 @@ public class PostModel {
     //public String myuid; // 로그인한 uid
     //public String video; // 게시 영상
     //public String videoName; // 게시글사진 이름(사진삭제할때 필요, 절대경로를 뜻함)
-
     public String video_path;
     public String contents; // 게시 내용
-    //public String username; // 회원가입시 닉네임
     public String email;
     public String thumbnail_path;//썸네일
-    //public String videoUrl;
-    //public String thumbUrl;
 
     //public int starCount = 0; // 좋아요 갯수
     //public Map<String, Boolean> stars = new HashMap<>(); // 좋아요 한 사람
