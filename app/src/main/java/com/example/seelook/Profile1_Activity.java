@@ -22,11 +22,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class Profile1_Activity extends AppCompatActivity implements Button.OnClickListener{
 
@@ -37,6 +42,8 @@ public class Profile1_Activity extends AppCompatActivity implements Button.OnCli
     private String user_nick_name;
     private SharedPreferences appData;
     final private DatabaseReference userRef= FirebaseDatabase.getInstance().getReference().child("users");
+    List<String> timeData = new ArrayList<String>();
+    List <PostModel> postData = new ArrayList<PostModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,18 +87,23 @@ public class Profile1_Activity extends AppCompatActivity implements Button.OnCli
 
     public void getStorage(String user_email){
         //스토리지는 어떻게 가져올까.... 일단 데이터베이스에서 썸네일, 영상 경로 얻어오고 -> 스토리지에서 가져오기??
-        // 데이터베이스에 시간순으로 여러개 있는데 이건 어떻게 하지?
-        DatabaseReference videoRef=FirebaseDatabase.getInstance().getReference().child("video_info");
+        // 데이터베이스에 시간순으로 여러개 있는데 이건 어떻게 하지?->시간 가져옴!
+        DatabaseReference videoRef=FirebaseDatabase.getInstance().getReference().child("video_info").child(user_email);
         videoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //PostModel post=dataSnapshot.child(user_email).getValue(PostModel.class); 시간을 어떻게 처리할까
                 //post 배열?
-            }
+                for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()){
+                    String key = fileSnapshot.getKey();//시간 값 가져오
+                    timeData.add(key);
 
+                }
+                Log.d(TAG,"시간 리스트: "+timeData);
+                timeData.clear();
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

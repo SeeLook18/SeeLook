@@ -4,10 +4,11 @@ import android.net.Uri;
 
 import com.google.android.gms.tasks.Task;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostModel {
+public class PostModel implements Serializable {
     //public String myuid; // 로그인한 uid
     //public String video; // 게시 영상
     //public String videoName; // 게시글사진 이름(사진삭제할때 필요, 절대경로를 뜻함)
