@@ -20,8 +20,10 @@ public class PostModel implements Serializable {
     //public int starCount = 0; // 좋아요 갯수
     //public Map<String, Boolean> stars = new HashMap<>(); // 좋아요 한 사람
     // String 값은 아이디를 뜻하고, boolean 은 true
+    public PostModel(){
 
-    PostModel(String video_path, String thumbnail_path, String contents, String email){
+    }
+    public PostModel(String video_path, String thumbnail_path, String contents, String email){
         this.video_path = video_path;
         this.thumbnail_path = thumbnail_path;
         this.contents = contents;
@@ -29,5 +31,16 @@ public class PostModel implements Serializable {
         //this.videoUrl=videoUrl;
         //this.thumbUrl=thumbUrl;
     }
-
+    public String getVideo_path(){
+        return video_path;
+    }
+    public String getThumbnail_path(){
+        return thumbnail_path;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public String getContents(){
+        return contents;
+    }
 }

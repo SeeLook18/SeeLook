@@ -1,6 +1,7 @@
 package com.example.seelook;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.widget.VideoView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +45,8 @@ public class Profile1_Activity extends AppCompatActivity implements Button.OnCli
     private SharedPreferences appData;
     final private DatabaseReference userRef= FirebaseDatabase.getInstance().getReference().child("users");
     List<String> timeData = new ArrayList<String>();
-    List <PostModel> postData = new ArrayList<PostModel>();
+    List<String> thumbData= new ArrayList<>();
+    List<String> videoData= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,20 +90,41 @@ public class Profile1_Activity extends AppCompatActivity implements Button.OnCli
 
     public void getStorage(String user_email){
         //스토리지는 어떻게 가져올까.... 일단 데이터베이스에서 썸네일, 영상 경로 얻어오고 -> 스토리지에서 가져오기??
-        // 데이터베이스에 시간순으로 여러개 있는데 이건 어떻게 하지?->시간 가져옴!
-        DatabaseReference videoRef=FirebaseDatabase.getInstance().getReference().child("video_info").child(user_email);
+        // 데이터베이스에 시간순으로 여러개 있는데 이건 어떻게 하지?->시간 가져옴!->스토리지에 이용?
+        final DatabaseReference videoRef=FirebaseDatabase.getInstance().getReference().child("video_info").child(user_email);
         videoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //PostModel post=dataSnapshot.child(user_email).getValue(PostModel.class); 시간을 어떻게 처리할까
-                //post 배열?
+                //post List?
                 for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()){
-                    String key = fileSnapshot.getKey();//시간 값 가져오
+                    String key = fileSnapshot.getKey();//시간 값 가져오기
+                    Log.d(TAG,"시간: "+key);
                     timeData.add(key);
-
+                    for(DataSnapshot ffilesnapshot: fileSnapshot.getChildren())
+                    {
+                        if(ffilesnapshot.getKey().equals("thumbnail_path"))
+                        {
+                            Log.d(TAG,"썸네일 :"+ffilesnapshot.getValue());
+                            thumbData.add((String) ffilesnapshot.getValue());
+                        }
+                        if(ffilesnapshot.getKey().equals("video_path"))
+                        {
+                            Log.d(TAG,"영상 :"+ffilesnapshot.getValue());
+                            videoData.add((String)ffilesnapshot.getValue());
+                        }
+                        //이거 왜 안되냐 개빡침
+                        //PostModel post=ffilesnapshot.getValue(PostModel.class);
+                        //String thumbnail_path = post.getThumbnail_path();
+                        //String video_path = post.getVideo_path();
+                        //Log.d(TAG,"썸네일: "+thumbnail_path+"영상: "+video_path);
+                    }
+                    Log.d(TAG,"썸네일 리스트 : "+thumbData.toString());
+                    Log.d(TAG,"영상 리스트 : "+videoData.toString());
                 }
                 Log.d(TAG,"시간 리스트: "+timeData);
                 timeData.clear();
+                thumbData.clear();
+                videoData.clear();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
