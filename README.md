@@ -15,7 +15,3 @@ Screen Shots
 <img src = "https://user-images.githubusercontent.com/66946182/97982532-496ea080-1e17-11eb-8941-cf71efb8763a.png" width = "40%">
 
 <img src = "https://user-images.githubusercontent.com/66946182/97982561-58ede980-1e17-11eb-8a4b-a088de36d444.png" width = "40%">
-
-<img src = "https://user-images.githubusercontent.com/66946182/97982686-7fac2000-1e17-11eb-915c-f1b181c413fb.png" width = "40%">
-
-<img src = "https://user-images.githubusercontent.com/66946182/97982745-92265980-1e17-11eb-8d82-824fca9d8e8a.png" width = "40%">
