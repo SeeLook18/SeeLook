@@ -8,7 +8,7 @@ implement in Android **개발 진행 중**
 Screen Shots
 -----
 
-앱 로그인 및 게시 화면
+1) 앱 로그인 및 게시물 작성 화면
 
 <div>
 <img width="300" src = "https://user-images.githubusercontent.com/66946182/97982367-04e30500-1e17-11eb-822b-e040c8abd29c.png">
@@ -16,6 +16,6 @@ Screen Shots
 <img width="300" src = "https://user-images.githubusercontent.com/66946182/99532818-3dbed480-29e8-11eb-8d2e-0b61239951b6.png">
 </div>
 
-firebase datebase에 회원 정보와 게시 정보가 저장된 모습 
+2) firebase datebase에 회원 정보와 게시물 작성 정보가 저장된 모습 
 
 <img width = "400" src = "https://user-images.githubusercontent.com/66946182/99533167-cccbec80-29e8-11eb-9d10-8be1a9bac349.png">
